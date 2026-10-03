@@ -1,0 +1,38 @@
+# Card metadata consumed by https://designmolecule.com
+name: DoliTrail
+slug: dolitrail
+repo: BoujeeEnjinia1701/dolitrail         # GitHub repository, shown on every drawing and render
+area: Autonomous and assisted mobility
+trl: 3                   # Technology Readiness Level, see .kit/STANDARDS.md section 9
+trl_target: 3
+design_state: constructable   # STANDARDS section 18; made constructable 2026-10-03 (DLT-DDR-002)
+trl_evidence:
+  - docs/01-problem.md
+  - docs/02-concept.md
+  - docs/03-requirements.md
+  - docs/decisions/0001-trl2-review-decisions.md
+  - docs/decisions/0002-design-for-construction.md
+  - docs/04-calcs/01-sizing.md
+  - docs/04-calcs/sizing.py
+  - docs/04-calcs/results.csv
+  - cad/src/model.py
+  - cad/step/dolitrail-assembly.step
+  - cad/drawings/DLT-DWG-001.svg
+  - cad/drawings/DLT-DWG-001.pdf
+  - bom/bom.csv
+  - docs/05-build-plan.md
+  - docs/06-design-decisions.md
+  - docs/05-build-plan/overview.png
+  - cad/src/build_plan_media.py
+shortlisted: false
+pitch: >-
+  Adds a braked wheel and harness to the bamboo stretchers families use to carry patients to the road.
+problem: >-
+  In villages with no motorable road, families and health workers carry patients and women in labour for kilometres on hand-made bamboo stretchers to reach an ambulance. The whole weight rides on the bearers' shoulders, on steep, wet and uneven trails.
+budget_usd: 1500  # value-engineering target (STANDARDS section 18); estimated cost of the constructable design USD 455
+difficulty: 3  # 1 easiest, 5 hardest
+hero_image: media/hero.png
+licenses:
+  hardware: CERN-OHL-S-2.0
+  software: MIT
+tags: [open-hardware, assisted-mobility, patient-transport, rural-health, maternal-health, india]

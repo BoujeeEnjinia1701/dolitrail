@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use or build on this design, please cite it as below."
+type: software
+title: "DoliTrail"
+abstract: "Adds a braked wheel and harness to the bamboo stretchers families use to carry patients to the road."
+authors:
+  - given-names: Amish
+    family-names: Chadha
+    affiliation: Design Molecule
+    orcid: "https://orcid.org/0009-0000-8079-7141"
+repository-code: "https://github.com/BoujeeEnjinia1701/dolitrail"
+url: "https://designmolecule.com"
+license: CERN-OHL-S-2.0
+keywords:
+  - open-hardware
+  - assisted-mobility
+  - patient-transport
+  - rural-health
+  - maternal-health
+  - india
