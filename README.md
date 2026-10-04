@@ -4,7 +4,7 @@
 
 ![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827) [![REUSE compliant](https://github.com/BoujeeEnjinia1701/dolitrail/actions/workflows/reuse.yml/badge.svg)](https://github.com/BoujeeEnjinia1701/dolitrail/actions/workflows/reuse.yml)
 
-**Area:** Autonomous and assisted mobility · **TRL:** 3 of 9 (proof of concept on paper; constructable design) · **Value-engineering target:** USD 1,500 (estimated cost USD 455) · **Difficulty:** 3 of 5
+**Area:** Autonomous and assisted mobility · **TRL:** 3 of 9 (proof of concept on paper; constructable design) · **Value-engineering target:** USD 1,500 (estimated cost USD 482) · **Difficulty:** 3 of 5
 
 Adds a braked wheel and harness to the bamboo stretchers families use to carry patients to the road.
 
@@ -54,7 +54,7 @@ Full problem statement: [docs/01-problem.md](docs/01-problem.md)
 
 ## Concept
 
-A clamp-on braked wheel and shoulder harness that fits the bamboo stretcher (doli) families already use; the bearers roll the patient along the trail, hold speed on descents with the brake lever, and lift it over steps.
+A clamp-on braked wheel and shoulder harness that fits the bamboo stretcher (doli) families already use; the bearers roll the patient along the trail, hold speed on descents with the brake lever and a hold-back strap, and lift it over steps, with four people at steps over about 250 mm.
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md) · Calculations: [docs/04-calcs/01-sizing.md](docs/04-calcs/01-sizing.md) · Prototype build plan: [docs/05-build-plan.md](docs/05-build-plan.md) · Design decisions: [docs/06-design-decisions.md](docs/06-design-decisions.md)
 
@@ -66,7 +66,8 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [d
 - Brake and lever
 - Bearer harnesses
 - Patient straps
-- Carry bag and fitting card
+- Lift handles and hold-back strap
+- Two carry bags and fitting card
 
 ## Building the prototype
 
@@ -78,7 +79,9 @@ The prototype build plan ([docs/05-build-plan.md](docs/05-build-plan.md)) shows 
 
 > Safety-critical patient transport equipment. Published as an open engineering reference, never as certified medical or rescue equipment.
 >
-> Brake failure on a steep descent could lead to a runaway or a fall. Bearers keep hold of the poles at all times and lift and carry on slopes steeper than the tested limit.
+> Brake failure or tyre slip on a steep descent could lead to a runaway or a fall. Bearers keep hold of the poles at all times, the rear bearer is clipped to the hold-back strap on every descent, and the doli is lifted and carried on wet clay steeper than 20 per cent and on any slope steeper than the tested limit.
+>
+> Four people lift at any step over about 250 mm; two bearers never lift the loaded doli over such a step.
 >
 > Lift and carry across streams and rivers; never roll the doli through moving water.
 >
@@ -86,7 +89,7 @@ The prototype build plan ([docs/05-build-plan.md](docs/05-build-plan.md)) shows 
 >
 > Straps must release quickly so the patient can be moved off the doli at once if needed.
 >
-> The doli rolls on one wheel and can tip sideways: bearers keep both hands on the poles. No person is carried until the frame, clamps and wheel have been proof-loaded (see the build plan, sections 5 and 6).
+> The doli rolls on one wheel and can tip sideways: bearers keep both hands on the poles. No person is carried until the frame, clamps and wheel have been proof-loaded, the wheel and tyre with a 285 kg static load (see the build plan, sections 5 and 6).
 >
 > This design is published as an open engineering reference. It is not certified equipment. CONCEPT, NOT FOR FABRICATION.
 

@@ -80,6 +80,8 @@ def product_parts(p=M.PARAMS):
     add("Cross strap, webbing", allk("cross"), C_WEB_ORANGE, "fabric", 9, "shell", (0, 0, 650))
     add("Patient straps, webbing", allk("patient"), C_WEB_RED, "fabric", 10, "shell", (0, 0, 500))
     add("Bearer harness pole loops", allk("harness"), C_HARNESS, "fabric", 11, "shell", (0, 0, 400))
+    add("Lift handles, webbing", allk("handles"), C_HARNESS, "fabric", 16, "shell", (0, 0, -300))
+    add("Hold-back strap loops, webbing", allk("holdback"), C_WEB_ORANGE, "fabric", 17, "shell", (-250, 0, 300))
     add("Bamboo poles and cross sticks (the family's doli)", Compound(c["poles"] + c["sticks"]), C_BAMBOO, "wood", None, "context")
     add("Cloth bed (the family's doli)", c["bed"], C_CLOTH, "fabric", None, "context")
     from context_parts import mannequin

@@ -27,7 +27,7 @@ TITLE = "Clamp-on braked wheel and harness kit for a bamboo stretcher"
 MD = ROOT / "media"
 COL = {"fork": "#0F766E", "arms": "#155E75", "jaws": "#0E7490", "liners": "#1F2937", "bolts": "#9CA3AF",
        "tyre": "#27272A", "rim": "#A1A1AA", "brake": "#B91C1C", "mount": "#155E75", "cross": "#EA580C",
-       "patient": "#DC2626", "harness": "#D97706"}
+       "patient": "#DC2626", "harness": "#D97706", "handles": "#7C3AED", "holdback": "#1D4ED8"}
 BAMBOO, CLOTH = "#C8A96A", "#E7E5E4"
 
 
@@ -64,6 +64,8 @@ def kit_parts(k=None, explode=False):
         Part("Cross strap", k["cross"][0][1], COL["cross"], 9, e((0, 0, 560))),
         Part("Patient straps", Compound([s for _, s in k["patient"]]), COL["patient"], 10, e((0, 0, 500))),
         Part("Bearer harness pole loops", Compound([s for _, s in k["harness"]]), COL["harness"], 11, e((0, 0, 300))),
+        Part("Lift handles", Compound([s for _, s in k["handles"]]), COL["handles"], 16, e((0, 0, -250))),
+        Part("Hold-back strap loops", Compound([s for _, s in k["holdback"]]), COL["holdback"], 17, e((-200, 0, 200))),
     ]
 
 
@@ -116,7 +118,7 @@ def exploded():
                      title=f"{PROJECT}: exploded view",
                      note="Frame, wheel and brake seen from the front right and above, 22 deg elevation; numbers match "
                           "bom/bom.csv. Lever mount drawn near the frame (it fits on the front right pole). Not shown: "
-                          "brake cable, patient straps (10), bearer harnesses (11)")
+                          "brake cable, patient straps (10), bearer harnesses (11), lift handles (16), hold-back strap (17)")
 
 
 def flow():
@@ -149,9 +151,10 @@ def blueprint():
     shown = K.with_scale_figure(ps)
     views = project_views(Compound([p.shape for p in ps]), MD / "_views")
     views["iso"] = project_views(Compound([p.shape for p in shown]), MD / "_views_fig")["iso"]
-    s = Sheet(project=PROJECT, title=f"{TITLE} concept", dwg_no="DLT-DWG-010", rev="P1", author="Amish Chadha",
+    s = Sheet(project=PROJECT, title=f"{TITLE} concept", dwg_no="DLT-DWG-010", rev="P2", author="Amish Chadha",
               date="2026-10-03", theme="blueprint", material="Massing model for concept communication",
-              revisions=[("P1", "Concept sheet from the constructable model (DLT-DDR-002)", "2026-10-03", "AC")])
+              revisions=[("P1", "Concept sheet from the constructable model (DLT-DDR-002)", "2026-10-03", "AC"),
+                         ("P2", "DLT-DDR-003: lift handles, hold-back strap, two bags", "2026-10-03", "AC")])
     s.add_ortho(views)
     s.add_svg(views["iso"], 276, 32, 140, 118, label="Isometric view", sublabel="Not to scale; figure is a 1.75 m person")
     s.add_notes("Key figures", [
@@ -159,8 +162,9 @@ def blueprint():
         "20 inch wheel under the patient's hips; disc brake, lever on the front right pole",
         f"Rated patient 120 kg; rolling weight {r('L1'):.0f} kg with doli and kit",
         f"Level trail: about {r('L5'):.0f} kg per bearer against {r('L3') if False else 65:.0f} kg carried (est.)",
-        f"Brake holds a 30 % grade, factor {r('B4'):.2f}; tyre grip on wet mud {r('B6'):.2f}",
-        f"Width {r('W1'):.0f} mm on 550 mm poles; kit {r('K11'):.1f} kg; parts about USD {r('Q1'):.0f}",
+        f"Brake holds a 30 % grade, factor {r('B4'):.2f}; wet mud grip {r('B6'):.2f}: hold-back strap",
+        "Wet clay over 20 %: lift and carry; steps over 250 mm: four bearers",
+        f"Width {r('W1'):.0f} mm on 550 mm poles; kit {r('K11'):.1f} kg in two bags; about USD {r('Q1'):.0f}",
         "Not certified rescue or medical equipment",
     ], x=276, y=168, width=140)
     s.save(MD / "concept-blueprint")
