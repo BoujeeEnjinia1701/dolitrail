@@ -1,5 +1,4 @@
-"""DoliTrail parametric model (build123d), TRL 3, constructable design (DLT-DDR-002), with the
-round 2 requirement decisions (DLT-DDR-003): lift handles on the cross stubs and a hold-back strap.
+"""DoliTrail parametric model (build123d), TRL 3, constructable design (DLT-DDR-002).
 
 Run from the repo root:  python cad/src/model.py [--check] [--export]
   --check   run the constructability checks (overlaps, contacts, clearances, widths)
@@ -27,9 +26,12 @@ Kit (BOM line numbers in brackets, see bom/bom.csv):
   [9]  cross strap: 50 mm webbing loop round both poles above the wheel, under the bed
   [10] patient straps, three: 50 mm webbing with quick-release cam buckles
   [11] bearer harnesses, two: shoulder yoke, hip belt and two pole loops each (pole loops shown)
-  [12] carry bags, two, [13] fitting card, [14] hook-and-loop cable ties
-  [16] lift handles, two: 25 mm webbing loops round the cross stubs for two helpers at steps (DLT-DDR-003)
-  [17] hold-back strap: from the rear bearer's hip belt to loops on the rear pole ends (DLT-DDR-003)
+  [12] wheel bag (fork unit, wheel, brake, pump), [13] fitting card, [14] hook-and-loop cable ties
+  [16] hold-back strap: two webbing end caps over the rear pole ends, legs to a ring and a tail to
+       the rear (uphill) bearer's hip belt (DLT-DDR-003, decision 7A)
+  [17] lift handles, two: webbing loops sewn round the cross stubs for two helpers at steps
+       (DLT-DDR-003, decision 9A)
+  [18] parts bag (arms, jaws, bolts, lever mount, straps, harnesses, hold-back strap; decision 8A)
 CONCEPT, NOT FOR FABRICATION.
 """
 import math
@@ -89,11 +91,13 @@ PARAMS = {
     "patient_straps_x": [800.0, 150.0, -550.0],
     "loop_x": (1330.0, -1080.0),    # harness pole loops near the pole ends (front, rear)
     "lever_x": 1180.0,               # lever mount on the front right pole
-    # round 2 decisions (DLT-DDR-003)
-    "handle_y": (100.0, -100.0),     # lift handles: on the front stub left of centre, on the rear stub right of centre
-    "handle_w": 25.0,                # webbing width
-    "handle_drop": 140.0,            # loop hangs this far below the stub underside
-    "holdback_x": -1128.0,           # hold-back strap loops on the rear pole ends (pole end at -1,150)
+    # decisions 7A and 9A (DLT-DDR-003)
+    "cap_len": 40.0,                 # hold-back strap end caps over the rear pole ends
+    "hb_ring": (-1450.0, 0.0, 860.0),  # ring where the two legs of the hold-back strap meet
+    "hb_tail": 600.0,                # tail from the ring to the rear bearer's hip belt
+    "handle_y": 100.0,               # lift handles: front one on the left, rear one on the right
+    "handle_w": 40.0,
+    "handle_drop": 130.0,            # hand loop hangs below the stub
 }
 
 
@@ -468,32 +472,47 @@ def harness_loops(p=PARAMS):
     return out
 
 
-def lift_handles(p=PARAMS):
-    """Two 25 mm webbing loops (BOM 16): one wrapped round each cross stub between the strut and the set
-    screw, hanging below it, for the two helpers who lift at steps over about 250 mm (DLT-DDR-003)."""
-    s, w = p["stub"][0], p["handle_w"]
-    t = p["web_t"]
-    out = []
-    for xs, yh in ((p["stub_x"], p["handle_y"][0]), (-p["stub_x"], p["handle_y"][1])):
-        zc = p["stub_z"]
-        wrap = Pos(xs, yh, zc) * (Box(s + 0.2 + 2 * t, w, s + 0.2 + 2 * t) - Box(s + 0.2, w + 2, s + 0.2))
-        z_top = zc - s / 2 - 0.1 - t
-        h = p["handle_drop"]
-        loop = Pos(xs, yh, z_top - h / 2) * (Box(s + 0.2 + 2 * t, w, h) - Box(s + 0.2, w + 2, h - 2 * t))
-        out.append(wrap + loop)
-    return out
-
-
-def holdback_strap(p=PARAMS):
-    """Hold-back strap (BOM 17): a loop on each rear pole end with a tail to the rear bearer's hip belt
-    (the tails and the belt clip are shown as short hanging lengths; the belt is part of the harness)."""
+def hold_back_strap(p=PARAMS):
+    """Hold-back strap (decision 7A): two closed webbing end caps over the rear pole ends, so the pull
+    bears on the end of each pole, two 25 mm legs to a steel ring, and a tail with a cam buckle to the
+    rear (uphill) bearer's hip belt (tail drawn up to the bearer's side, belt not drawn)."""
     r = p["pole_d"] / 2
-    xh = p["holdback_x"]
-    out = []
+    x0 = p["pole_x"][0]
+    t = 2.5
+    caps, legs = [], []
+    rx, ry, rz = p["hb_ring"]
     for s in (1, -1):
-        loop = ring_band(xh, s * p["pole_y"], p["pole_z"], r, 2.5, p["handle_w"])
-        tail = Pos(xh, s * p["pole_y"], p["pole_z"] - r - 2.5 - 90) * Box(p["handle_w"], 3, 180)
-        out.append(loop + tail)
+        y = s * p["pole_y"]
+        sleeve = rod((x0, y, p["pole_z"]), (x0 + p["cap_len"], y, p["pole_z"]), r + t) - rod(
+            (x0 - 1, y, p["pole_z"]), (x0 + p["cap_len"] + 1, y, p["pole_z"]), r)
+        end = rod((x0 - t, y, p["pole_z"]), (x0, y, p["pole_z"]), r + t)
+        caps.append(sleeve + end)
+        legs.append(rod((x0 - t, y, p["pole_z"]), (rx + 14, ry + s * 8, rz), 3.0))
+    ring = Pos(rx, ry, rz) * Rot(90, 0, 0) * Torus(14.0, 3.0)
+    tail = rod((rx - 14, ry, rz), (rx - 14 - p["hb_tail"], ry, rz + 60), 3.0)
+    buckle = Pos(rx - 14 - p["hb_tail"], ry, rz + 60) * Box(40, 30, 12)
+    return {"caps": caps, "legs": Compound(legs + [ring, tail, buckle])}
+
+
+def lift_handles(p=PARAMS):
+    """Lift handles (decision 9A): a 40 mm webbing band sewn shut round each cross stub, with a hand
+    loop hanging below. Front stub: left of centre; rear stub: right of centre (helpers on opposite
+    sides of the doli)."""
+    s = p["stub"][0]
+    sz = p["stub_z"]
+    w = p["handle_w"]
+    t = 2.0
+    out = []
+    for xs, side in ((p["stub_x"], 1), (-p["stub_x"], -1)):
+        y = side * p["handle_y"]
+        band = Pos(xs, y, sz) * (Box(s + 2 * t, w, s + 2 * t) - Box(s, w + 2, s))
+        zb = sz - s / 2 - t
+        lw, lh = 70.0, p["handle_drop"]
+        loop = Pos(xs, y, zb - lh / 2) * (Box(lw, w, lh) - Box(lw - 2 * t, w + 2, lh - 2 * t))
+        # foam grip sleeve on the bottom of the loop (25 mm foam tube, drawn as a solid round)
+        zg = zb - lh + 12.0
+        grip = rod((xs - lw / 2 + t, y, zg), (xs + lw / 2 - t, y, zg), 12.0)
+        out.append(band + loop + grip)
     return out
 
 
@@ -540,8 +559,8 @@ BOM = {  # key: (BOM line, name)
     "cross": (9, "Cross strap"),
     "patient": (10, "Patient straps"),
     "harness": (11, "Bearer harnesses"),
-    "handles": (16, "Lift handles"),
-    "holdback": (17, "Hold-back strap"),
+    "holdback": (16, "Hold-back strap"),
+    "handles": (17, "Lift handles"),
 }
 
 
@@ -572,8 +591,10 @@ def build_kit(p=PARAMS, d=None):
     out["cross"] = [("cross strap", cross_strap(p))]
     out["patient"] = [(f"patient strap {k + 1}", s) for k, s in enumerate(patient_straps(p))]
     out["harness"] = [(f"harness pole loop {k + 1}", s) for k, s in enumerate(harness_loops(p))]
+    hb = hold_back_strap(p)
+    out["holdback"] = [("hold-back cap left", hb["caps"][0]), ("hold-back cap right", hb["caps"][1]),
+                       ("hold-back legs ring and tail", hb["legs"])]
     out["handles"] = [(f"lift handle {tag}", s) for tag, s in zip(("front", "rear"), lift_handles(p))]
-    out["holdback"] = [(f"hold-back loop {tag}", s) for tag, s in zip(("left", "right"), holdback_strap(p))]
     return out
 
 
@@ -706,18 +727,33 @@ def checks(p=PARAMS):
         add(f"{name}: round both poles, clear of the clamps and cross sticks", v < 1.0 and _dist(s, poles) < 0.5, f"{v:.1f} mm3")
     for name, s in k["harness"]:
         add(f"{name}: on the pole end", _dist(s, poles) < 0.5 and _vol(s, poles) < 1.0, "")
-    # round 2 decisions (DLT-DDR-003)
-    struts_etc = Compound([fork, arms, Compound([s for _, s in k["bolts"]])])
-    for name, s in k["handles"]:
-        v = max(_vol(s, struts_etc), _vol(s, wheel_all), _vol(s, Compound([br["rotor"], br["caliper"]])))
-        add(f"{name}: wrapped on its cross stub, clear of the struts, set screw, arm, wheel and brake",
-            _dist(s, fork) < 0.5 and v < 1.0, f"{v:.1f} mm3")
-        add(f"{name}: clear of the tyre by at least 30 mm", _dist(s, w["tyre"]) >= 30.0, f"{_dist(s, w['tyre']):.0f} mm")
-        add(f"{name}: at least 300 mm above the ground", s.bounding_box().min.Z >= 300.0, f"{s.bounding_box().min.Z:.0f} mm")
+    # hold-back strap (decision 7A)
+    hb = dict(k["holdback"])
+    sticks = Compound(doli["sticks"])
     harn = Compound([s for _, s in k["harness"]])
-    for name, s in k["holdback"]:
-        add(f"{name}: on the rear pole end, clear of the harness pole loop", _dist(s, poles) < 0.5 and _vol(s, poles) < 1.0
-            and _dist(s, harn) >= 5.0 and s.bounding_box().min.X >= p["pole_x"][0], f"{_dist(s, harn):.0f} mm to the harness loop")
+    for side in ("left", "right"):
+        cap = hb[f"hold-back cap {side}"]
+        add(f"hold-back cap {side}: over the pole end, bearing on the end face, no overlap",
+            _dist(cap, poles) < 0.5 and _vol(cap, poles) < 1.0, f"gap {_dist(cap, poles):.2f} mm")
+        g = _dist(cap, harn)
+        add(f"hold-back cap {side}: clear of the harness pole loop by at least 3 mm", g >= 3.0, f"{g:.1f} mm")
+    legs = hb["hold-back legs ring and tail"]
+    v = max(_vol(legs, poles), _vol(legs, sticks), _vol(legs, harn))
+    add("hold-back legs, ring and tail clear of the poles, cross sticks and harness loops", v < 1.0, f"{v:.1f} mm3")
+    add("hold-back legs joined to the caps", _dist(legs, Compound([hb["hold-back cap left"], hb["hold-back cap right"]])) < 0.5, "")
+    # lift handles (decision 9A)
+    sets = Compound([s for n, s in k["bolts"] if n.startswith("set")])
+    for name, h in k["handles"]:
+        add(f"{name}: sewn round its cross stub, no overlap with the fork unit",
+            _dist(h, fork) < 0.5 and _vol(h, fork) < 1.0, f"gap {_dist(h, fork):.2f} mm")
+        v = max(_vol(h, arms), _vol(h, sets), _vol(h, br["caliper"]), _vol(h, br["cable"]))
+        add(f"{name}: clear of the arms, set screws and brake", v < 1.0, f"{v:.1f} mm3")
+        g = _dist(h, w["tyre"])
+        add(f"{name}: hand loop clear of the tyre by at least 15 mm", g >= 15.0, f"{g:.1f} mm")
+        g = min(_dist(h, poles), _dist(h, doli["bed"]))
+        add(f"{name}: room for a hand between the loop and the poles and bed (at least 100 mm)", g >= 100.0, f"{g:.0f} mm")
+        low = h.bounding_box().min.Z
+        add(f"{name}: at least 150 mm above the ground", low >= 150.0, f"{low:.0f} mm")
     # width over the clamps (R6)
     bb = Compound([frame_only(p, k), poles]).bounding_box()
     add("width over the clamps and poles at most 700 mm on the reference doli", bb.size.Y <= 700.0, f"{bb.size.Y:.0f} mm")

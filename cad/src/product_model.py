@@ -2,7 +2,8 @@
 
 Finished-product look for photoreal renders, built from the constructable model: every kit piece of
 cad/src/model.py build_kit() is used as it is (fork unit, side arms, jaws, liners, T-bolts, wheel,
-disc brake, lever mount, cross strap, patient straps, harness pole loops), fitted to the reference
+disc brake, lever mount, cross strap, patient straps, harness pole loops, and from decisions 7A and 9A
+the hold-back strap and lift handles), fitted to the reference
 doli of model.doli_context(). Only the look is added, as recorded in docs/REVIEW.md: bamboo and cloth
 colours for the family's doli, and a 1.75 m mannequin standing beside the doli on its far side for
 scale (never between the camera and the product). The detail view repeats the front right clamp
@@ -27,10 +28,10 @@ RENDER_VIEWS = [
     {"name": "hero", "groups": ["shell", "internal", "context"], "explode": False, "el": 24, "az": -35,
      "note": "Product render from the front right and above (about 24 deg elevation): the kit clamped under the "
              "reference bamboo doli, 20 inch wheel under the patient's hips, brake lever on the front right pole, "
-             "patient straps and harness pole loops; 1.75 m person standing beside the doli on its far side for scale"},
+             "patient straps, harness pole loops, the hold-back strap on the rear pole ends and the lift handles under the stubs; 1.75 m person standing beside the doli on its far side for scale"},
     {"name": "exploded", "groups": ["shell", "internal"], "explode": True, "el": 24, "az": -35,
      "note": "Exploded view from the front right and above (about 24 deg elevation): side arms, liners, jaws and "
-             "T-bolts lifted off the fork unit, wheel and brake dropped below it; doli not shown"},
+             "T-bolts lifted off the fork unit, wheel, brake and lift handles dropped below it, hold-back strap moved back; doli not shown"},
     {"name": "detail", "groups": ["detail"], "explode": False, "el": 18, "az": -50,
      "note": "Detail of the front right pole clamp from the front right and above (about 18 deg elevation): the "
              "bamboo pole in the rubber-lined steel V saddle, the upper jaw and two T-handle bolts, the side arm "
@@ -51,6 +52,8 @@ C_HARNESS = "#C2410C"
 C_BAMBOO = "#C9A465"
 C_CLOTH = "#B7C4C9"
 C_CLAY = "#B9B4AC"
+C_HOLDBACK = "#5B3FA8"
+C_HANDLE = "#C08A12"
 
 
 def product_parts(p=M.PARAMS):
@@ -80,8 +83,8 @@ def product_parts(p=M.PARAMS):
     add("Cross strap, webbing", allk("cross"), C_WEB_ORANGE, "fabric", 9, "shell", (0, 0, 650))
     add("Patient straps, webbing", allk("patient"), C_WEB_RED, "fabric", 10, "shell", (0, 0, 500))
     add("Bearer harness pole loops", allk("harness"), C_HARNESS, "fabric", 11, "shell", (0, 0, 400))
-    add("Lift handles, webbing", allk("handles"), C_HARNESS, "fabric", 16, "shell", (0, 0, -300))
-    add("Hold-back strap loops, webbing", allk("holdback"), C_WEB_ORANGE, "fabric", 17, "shell", (-250, 0, 300))
+    add("Hold-back strap, webbing and steel ring", allk("holdback"), C_HOLDBACK, "fabric", 16, "shell", (-300, 0, 200))
+    add("Lift handles, webbing with foam grips", allk("handles"), C_HANDLE, "fabric", 17, "shell", (0, 0, -250))
     add("Bamboo poles and cross sticks (the family's doli)", Compound(c["poles"] + c["sticks"]), C_BAMBOO, "wood", None, "context")
     add("Cloth bed (the family's doli)", c["bed"], C_CLOTH, "fabric", None, "context")
     from context_parts import mannequin

@@ -1,57 +1,5 @@
 # Review note: DoliTrail
 
-## Session 2026-10-03: round 2 requirement decisions applied
-
-Amish, 2026-10-03: "i approve all of the 47 recommendations provided by you. Execute them." For this repo that decides D-A1 to D-A4 (register O1 to O4) as recommended, recorded in `docs/decisions/0003-requirement-decisions-round2.md` (DLT-DDR-003). TRL 3 scope only: nothing built, bought, loaded or carried; the proof load and trials are TRL 4 steps in the build plan.
-
-### What was done
-
-- `cad/src/model.py`: two lift handles (BOM 16), 25 mm webbing loops wrapped round the cross stubs between the strut and the set screw, hanging 140 mm (front stub left of centre, rear stub right of centre); hold-back strap loops (BOM 17) on the rear pole ends, outboard of the harness loops. 83 of 83 constructability checks pass (75 before): each handle clear of the struts, set screws, arms, wheel and brake, 83 mm from the tyre and 348 mm above the ground; each hold-back loop on its pole end, 10 mm from the harness loop.
-- `docs/04-calcs/sizing.py`: two bags, handle and hold-back masses, bag loads, grip at the 20 per cent rule grade, worst-case hold-back strap force, four-bearer step rule. Re-run: `results.csv` and `01-sizing.md` (DLT-CAL-001 v0.2).
-- `bom/bom.csv`: line 12 two bags (USD 20 each), new line 16 lift handles (2 at USD 3), new line 17 hold-back strap (USD 6); prices estimated from the existing webbing and bag lines.
-- Regenerated with the repo's scripts: STEP and STL; general arrangement DLT-DWG-001 Rev P3; making sketches DLT-DWG-101 to 106 (unchanged parts, redrawn by the same run); build plan overview, joints 1 to 8 and new joints 9 (lift handle) and 10 (hold-back loops), steps 1 to 9; concept hero, cutaway, exploded, flow and blueprint DLT-DWG-010 Rev P2; `media/model.glb` (1.7 MB, linear deflection 1.0 mm, angular deflection 0.35 rad) and `media/viewer.html`.
-- Documents: DLT-REQ-001 v0.3 (status only, targets unchanged), DLT-PRC-001 v0.3, DLT-BLD-001 v0.2 (new section 3.11 lift handles and hold-back strap, two bags, wheel proof load and fallback, steps 8 and 9, first checks, safety stops S4 to S6), DLT-DEC-001 v0.2 (O1 to O4 decided, O5 added, change log), README, `cad/src/product_model.py` (handles and hold-back loops added for the next render), `project.yaml` trl_evidence.
-
-### Requirement status
-
-| ID | Before (DLT-CAL-001 v0.1) | After (DLT-CAL-001 v0.2) |
-| --- | --- | --- |
-| R3 | At risk: wheel 0.70, tyre 0.53 of twice the load on ratings | Met if the 285 kg static proof load holds; unproven until TRL 4 |
-| R5 | At risk: grip 0.84 on wet clay | Met with the bearer's help: hold-back strap; lift and carry on wet clay over 20 per cent (grip 1.37 at 20 per cent) |
-| R7 | Not met: 14.8 kg in one bag | Each load met, not one load for one person: 15.5 kg in bags of 6.9 and 8.7 kg |
-| R8 | Not met: 71 kg each, two bearers | Met with four people at steps over about 250 mm: about 36 kg each |
-| R9 | USD 455 | USD 482 |
-
-Others unchanged (R1, R2, R4, R6, R10, R11 met on paper). Lowest structural factor 2.02 to 2.01 with the 0.2 kg of handles; rolling weight 142.3 to 142.5 kg, so twice the wheel load is still 285 kg.
-
-### Cost
-
-Value-engineering target: USD 1,500. Estimated cost of the constructable design: USD 482 (USD 1,018 under the target), up USD 27 from USD 455: second bag USD 15, lift handles USD 6, hold-back strap USD 6 (estimates). `budget_usd` is the target and is unchanged.
-
-### Decisions for Amish
-
-**O5. Steps below the 250 mm threshold.** **Proposed, awaiting Amish.** State: below about 250 mm two bearers still lift the whole rolling weight, about 71 kg each, by up to 300 mm (poles to about 1,020 mm), for any step the wheel cannot roll up. Cause: the wheel carries the patient, so it must be lifted with everything on it.
-- A: keep the 250 mm threshold and measure the lift with sandbags at TRL 4 before any person is carried. No change now.
-- B: four bearers at any step the wheel cannot roll up (about 100 mm, estimate, to find in the sandbag trials). No hardware; fitting card and safety stops.
-- C: a step board carried in the kit to ramp the wheel up steps to about 250 mm. About USD 10 and 1.5 kg (estimates); worsens R7.
-- **Recommendation: B**, the conservative rule: 71 kg per person is not a safe lift at any height, and four bearers are already the rule at higher steps.
-
-### Safety notes
-
-- **Wheel proof load first.** No person is carried until the bought wheel and tyre hold a 285 kg static proof load for 10 min (TRL 4), as well as the 260 kg frame proof load and the wet ramp test. If the wheel or tyre fails, the heavier tricycle wheel and 20 x 2.4 cargo tyre are fitted and proof-loaded before anyone is carried. A paper factor is not a test.
-- **Hold-back strap and the wet clay rule.** On every descent the rear bearer's hold-back strap is clipped to the hip belt before the doli moves. On wet clay or mud steeper than 20 per cent the doli is lifted and carried, never rolled, whatever the strap. The strap works only with the braking bearer downhill and the strapped bearer uphill: if a descent would put the rear bearer downhill, the doli is turned at the top or carried. The rear bearer must be able to sit back into the strap; a tired or slipping bearer is a reason to stop and carry.
-- **Four bearers at steps over about 250 mm.** Two bearers never lift the loaded doli over such a step; the two helpers lift at the handles on the cross stubs, on opposite sides, and all four lift together on a call. Below 250 mm see O5.
-- **Two bags.** Two people walk to the patient with the kit, which is already how dolis travel; neither bag weighs more than 10 kg.
-- Handles and hold-back strap are checked at every fitting for cuts and pulled stitches (safety stop S6) and are proof-hung on the bench before first use (75 kg per handle, 80 kg on the strap).
-
-### Re-render
-
-Small geometry change only: two webbing loops under the cross stubs and two short loops on the rear pole ends, both largely hidden under the doli in the hero view. A re-render is not essential for the hero; the exploded and detail views would gain the new parts at the next render on the Mac, since `product_model.py` now includes them.
-
-### Recommended next step
-
-- Amish decides O5. Then the design looks ready for TRL 4 once Amish chooses to start it: build one kit, proof-load the frame (260 kg) and the wheel and tyre (285 kg static) with CalRig, run the wet ramp test and a wet clay slope test with sandbags and the hold-back strap, and a four-bearer step lift with sandbags. Recommendation only, not started.
-
 ## Session 2026-09-30: scaffolded
 
 ### What was done
@@ -180,3 +128,67 @@ Amish decides D-A1 to D-A4. Then the design looks ready for TRL 4 once Amish cho
 ## 2026-10-03: photoreal renders
 
 Rendered with Blender Cycles on Amish's Mac from `cad/src/product_model.py`; captioned with `.kit/photo_caption.py`; `media/card.png` and `media/social-preview.png` made with `.kit/cards.py`. Views: hero, exploded, detail. image_qc passes and `render.py --check` has no FAIL.
+
+## 2026-10-03: Amish's requirement decisions carried out (round 2)
+
+Amish on 2026-10-03: "i agree with all the 46 recommendations you provided. please proceed." For DoliTrail this decides O1 to O4 of DLT-DEC-001 as recommended: 6A (R3), 7A (R5), 8A (R7) and 9A (R8). Recorded in `docs/decisions/0003-requirement-decisions-round-2.md` (DLT-DDR-003). Not committed or pushed (batch run).
+
+### Changes
+
+- `cad/src/model.py`: hold-back strap (BOM line 16): two closed webbing end caps 40 mm deep over the rear pole ends, two 25 mm legs to a 40 mm steel ring, a 600 mm tail with a cam buckle to the rear bearer's hip belt. Lift handles (line 17): a 40 mm webbing band sewn shut round each cross stub, 100 mm off centre (front left, rear right), with a 130 mm hand loop and foam grip. Sixteen new checks; 91 of 91 constructability checks pass. STEP and STL regenerated (the new parts are in `dolitrail-assembly.step` and `dolitrail-kit.step`).
+- `bom/bom.csv`: line 12 is now the wheel bag; new lines 16 (hold-back strap, USD 6), 17 (two lift handles, USD 3 each) and 18 (parts bag, USD 15), each with its price basis.
+- `docs/04-calcs/sizing.py`, `results.csv` and `01-sizing.md` v0.2: new results [K13] to [K15], [B9] to [B11], [S12], [H5] to [H7]; assumptions A13 (carry limit) and A14 (webbing strength).
+- `docs/03-requirements.md` v0.3 (targets unchanged; Amish quoted; status of R3, R5, R7, R8 and R9), `docs/02-concept.md` v0.3, README cost and key components.
+- `docs/05-build-plan.md` v0.2: three new rows in Table 1; section 3.11 two bags; new sections 3.12 hold-back strap and 3.13 lift handles; step 9 adds the hold-back strap; first checks for the wheel proof load before use, the hold-back strap, each bag's mass and the four-person step; safety stops S3 and S5.
+- Pictures: general arrangement DLT-DWG-001 Rev P3 (lift handles shown, note line); new making sketches DLT-DWG-107 (hold-back strap) and DLT-DWG-108 (lift handle); new joints 9 (lift handle) and 10 (hold-back cap); overview and steps 1 to 9 redrawn (the fork unit now carries the handles); concept media redrawn (hero, exploded with the handles, cutaway, blueprint DLT-DWG-010 Rev P2 key figures, `model.glb`).
+- Register `docs/06-design-decisions.md` v0.2: O1 to O4 moved to Decisions made; items to confirm 1, 5 and 10 updated or added; value engineering updated.
+- Appearance model `cad/src/product_model.py`: hold-back strap and lift handles in the hero and exploded views; scenes re-exported to `/home/claude/renders/dolitrail`.
+
+### New results
+
+- R3: frame, arms and clamps factor 2.01 on yield at twice the rated load (was 2.02; 0.2 kg of handles added). Each bought wheel is proof-loaded to 285 kg (twice the 142.5 kg rolling weight) for 10 minutes before use; the heavier tricycle wheel only if it fails. Met on paper for the frame; the wheel and tyre are shown by the proof load.
+- R5: brake 1.23 and wet ramp grip 1.44 (verification test met on paper). Wet clay: 0.84 at 30 per cent, so the bearers lift and carry above 20 per cent, where grip is 1.37. The hold-back strap would take the 65 N shortfall on a 30 per cent wet clay patch met by surprise; strength factor about 25 against the whole along-slope force (webbing strength to confirm).
+- R7: two bags of 7.2 kg (fork unit, wheel, brake, handles, pump) and 8.3 kg (everything else), each under 10 kg; the whole kit is 15.5 kg, so it is not one load for one person.
+- R8: four people at steps, about 36 kg each; 350 N on each handle (webbing factor about 29; stub bending 13 MPa). With two bearers it is still about 71 kg each, which the drill rules out.
+- R2: unchanged at about 4.7 min; the handles stay on the frame and the hold-back strap goes on with the harness loops.
+- R9: Value-engineering target: USD 1,500. Estimated cost of the constructable design: USD 482 (USD 1,018 under the target). `budget_usd` unchanged.
+- Mass: fitted kit 12.5 kg; rolling weight 142.5 kg; level-trail bearer load about 14 kg (79 per cent less), unchanged.
+
+### For Amish
+
+- New open decision O5 in the register. State: R7 still reads "kit mass at or below 10 kg and carried by one person" and R8 "two bearers lift", but decisions 8A and 9A meet them with two bags and four people. Option A: restate R7 as "kit carried in two bags, each at or below 10 kg, one per bearer" and R8 as "four people (two bearers, two helpers at lift handles) lift the fitted doli over a 400 mm step without removing the wheel, about 36 kg each". Option B: keep the wording and report both as met only per bag and with four people. **Recommendation: A**, so the requirements match the design that will be tested at TRL 4. Nothing in the build changes either way.
+- The photoreal renders (`media/render-*.png`), card and social preview do not show the hold-back strap or lift handles yet; re-render on the Mac from the re-exported scenes.
+
+### Safety
+
+- The hold-back strap helps on wet descents; it does not replace the rule to lift and carry on wet clay steeper than 20 per cent. Two bearers never lift the fitted doli over a step alone.
+- Every bought wheel is proof-loaded with sandbags under safety stop S3 before any person is carried; sandbags before people is unchanged.
+
+### Recommended next step
+
+Amish decides O5. The design then looks ready for TRL 4 when Amish chooses to start it.
+
+## 2026-10-04: Amish's requirement decisions carried out (round 3)
+
+Amish on 2026-10-04: "For round 3, I agree with all your proposed recommendations". For DoliTrail this decides O5 of DLT-DEC-001 as recommended (1A). Recorded in `docs/decisions/0004-requirement-wording-round-3.md` (DLT-DDR-004). Wording and records only; no geometry. Not committed or pushed.
+
+### Changes
+
+- `docs/03-requirements.md` v0.4: R7 restated as "two bags of 10 kg or less, one per bearer"; R8 restated as "four people at steps, two at the lift handles"; Amish quoted.
+- `docs/04-calcs/01-sizing.md`: R7 note updated to the restated wording.
+- `docs/06-design-decisions.md` v0.3: O5 moved to Decisions made; Open decisions now "None."
+- No model, BOM, drawing or media change was needed.
+
+### New results
+
+- R7: met as designed; two bags of 7.2 and 8.3 kg, one per bearer.
+- R8: met as designed; four people, about 36 kg each.
+- R9: Value-engineering target: USD 1,500. Estimated cost of the constructable design: USD 482 (USD 1,018 under the target). Unchanged.
+
+### For Amish
+
+Nothing new.
+
+## 2026-10-04: photoreal renders redone after the round-2 and round-3 decisions
+
+Views: hero, exploded, detail; cards regenerated; image_qc passes and `render.py --check` has no FAIL.

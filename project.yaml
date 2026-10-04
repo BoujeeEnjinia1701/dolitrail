@@ -12,7 +12,7 @@ trl_evidence:
   - docs/03-requirements.md
   - docs/decisions/0001-trl2-review-decisions.md
   - docs/decisions/0002-design-for-construction.md
-  - docs/decisions/0003-requirement-decisions-round2.md
+  - docs/decisions/0003-requirement-decisions-round-2.md
   - docs/04-calcs/01-sizing.md
   - docs/04-calcs/sizing.py
   - docs/04-calcs/results.csv
@@ -30,7 +30,7 @@ pitch: >-
   Adds a braked wheel and harness to the bamboo stretchers families use to carry patients to the road.
 problem: >-
   In villages with no motorable road, families and health workers carry patients and women in labour for kilometres on hand-made bamboo stretchers to reach an ambulance. The whole weight rides on the bearers' shoulders, on steep, wet and uneven trails.
-budget_usd: 1500  # value-engineering target (STANDARDS section 18); estimated cost of the constructable design USD 455
+budget_usd: 1500  # value-engineering target (STANDARDS section 18); estimated cost of the constructable design USD 482
 difficulty: 3  # 1 easiest, 5 hardest
 hero_image: media/hero.png
 licenses:

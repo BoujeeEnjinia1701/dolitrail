@@ -16,12 +16,12 @@ revisions:
 - version: "0.2"
   date: '2026-10-03'
   author: Amish Chadha
-  change: "Round 2 requirement decisions (DLT-DDR-003): wheel proof load, hold-back strap and wet clay rule, two bags, four bearers at steps with lift handles"
+  change: "Amish's round-2 decisions 6A to 9A (DLT-DDR-003): wheel proof load [S12]; hold-back strap and the 20 per cent carry rule [B9] to [B11]; two bags [K13], [K14]; lift handles and four lifters [H5] to [H7]; masses, loads and cost re-run"
 ---
 
 # DoliTrail sizing calculations
 
-On paper, the kit lets two bearers roll a 120 kg patient on the reference doli along a level trail holding about 14 kg each instead of carrying 65 kg each, clamps to poles of 40 to 80 mm without tools, and keeps the doli's own width. The steel frame and clamps carry twice the rated load with a factor of at least 2.0 on yield, and the disc brake has a factor of 1.23 on a wet 30 per cent grade. Four results fell short or were at risk; Amish decided them on 2026-10-03 (DLT-DDR-003) and this issue carries the decisions. The wheel and tyre are not catalogue-rated for twice the load (R3), so they are proved by a 285 kg static proof load before any person is carried. The tyre can slide on wet clay before the brake slips (R5), so the rear bearer holds the shortfall on a hold-back strap and the doli is lifted and carried on wet clay steeper than 20 per cent. The kit, now 15.5 kg, travels in two bags of about 6.9 and 8.7 kg (R7). At steps over about 250 mm four people lift, about 36 kg each (R8). The estimated parts cost is USD 482, under the value-engineering target of USD 1,500.
+On paper, the kit lets two bearers roll a 120 kg patient on the reference doli along a level trail holding about 14 kg each instead of carrying 65 kg each, clamps to poles of 40 to 80 mm without tools, and keeps the doli's own width. The steel frame and clamps carry twice the rated load with a factor of at least 2.0 on yield, and the disc brake has a factor of 1.23 on a wet 30 per cent grade. Amish decided the four results that fell short on 2026-10-03 ("i agree with all the 46 recommendations you provided. please proceed."; DLT-DDR-003): each bought wheel is proof-loaded to 285 kg before use (R3); a hold-back strap ties the uphill bearer to the rear pole ends, and the doli is lifted and carried on wet clay steeper than 20 per cent, where the tyre grip factor is 1.37 (R5); the kit travels in two bags of about 7.2 and 8.3 kg (R7); and four people lift at steps, about 36 kg each, two of them at new lift handles on the cross stubs (R8). The estimated parts cost is USD 482, under the value-engineering target of USD 1,500.
 
 Every figure comes from `docs/04-calcs/sizing.py`, which imports the parametric model (`cad/src/model.py`), so the sizes here are those of the STEP files, the drawings and the build plan. Tags in square brackets match the script output and `docs/04-calcs/results.csv`. These are screening estimates for a paper proof of concept; every one is checked by test at TRL 4.
 
@@ -46,9 +46,9 @@ The fitted doli is a rigid beam on three supports: the wheel under the patient's
 | A9 | Steel | ERW tube, yield 210 MPa, E 205 GPa | IS 1161 YSt 210 |
 | A10 | Wheel and tyre ratings | Wheel 200 kg, tyre 150 kg at maximum pressure | Seller ratings, to confirm |
 | A11 | Rolling resistance | 0.08 on a dirt trail | Estimate |
-| A12 | Masses of bought parts | Wheel 2.60 kg, brake set 0.81 kg, harness 0.75 kg each, two bags 0.45 kg each, pump kit 0.35 kg, lift handles 0.10 kg each, hold-back strap 0.20 kg | Catalogue values and estimates, to confirm |
-| A13 | Round 2 rules (DLT-DDR-003) | Lift and carry on wet clay steeper than 20 per cent; four bearers at steps over about 250 mm | Decided by Amish |
-| A14 | 25 mm polyester webbing with sewn ends | Breaking strength 5 kN | Assumed, to confirm |
+| A12 | Masses of bought parts | Wheel 2.60 kg, brake set 0.81 kg, harness 0.75 kg each, wheel bag 0.60 kg, parts bag 0.30 kg, pump kit 0.35 kg, hold-back strap 0.20 kg, lift handles 0.10 kg each | Catalogue values and estimates, to confirm |
+| A13 | Carry limit (decision 7A) | Lift and carry on wet clay steeper than 20 per cent | Amish, 2026-10-03 |
+| A14 | Webbing strength | 25 mm polyester 5 kN, 50 mm polyester 10 kN, breaking | Typical values, to confirm |
 
 ## 2. Geometry
 
@@ -76,13 +76,14 @@ The fitted doli is a rigid beam on three supports: the wheel under the patient's
 | [K6], [K7] | Wheel; disc brake set | 2.60; 0.81 |
 | [K8] | Lever mount | 0.37 |
 | [K9] | Bearer harnesses, two | 1.50 |
-| [K10] | Straps, two bags, card, ties, pump and puncture kit, lift handles, hold-back strap | 2.46 |
-| [K11] | Kit in the two bags | **15.53** |
-| [K12] | Kit fitted to the doli (with the lift handles) | 12.52 |
-| [K14] | Bag 1, the wheel bag: fork unit with wheel and brake, pump | 6.86 |
-| [K15] | Bag 2, the parts bag: arms, jaws, bolts, lever mount, straps, harnesses, handles | 8.66 |
+| [K15] | Hold-back strap; lift handles, two | 0.20; 0.20 |
+| [K10] | Straps, two bags, card, ties, pump and puncture kit | 2.06 |
+| [K11] | Kit, both bags | 15.53 |
+| [K12] | Kit fitted to the doli, with the lift handles | 12.52 |
+| [K13] | Wheel bag: fork unit with lift handles, wheel, brake, pump kit, bag | **7.21** |
+| [K14] | Parts bag: arms, jaws, bolts, lever mount, straps, harnesses, hold-back strap, bag | **8.31** |
 
-**R7, each load met, not one load for one person** (decided, DLT-DDR-003, option A): the kit is 15.5 kg, but it travels in two bags of 6.9 kg and 8.7 kg, one per bearer, each under 10 kg [K16]. The steel frame with its bolts (7.8 kg) and the wheel and brake (3.4 kg) alone pass 10 kg, so no single bag can hold the whole kit within R7.
+**R7 (decision 8A):** the kit travels in two bags carried by the two bearers, who walk in together: 7.2 kg and 8.3 kg, each under 10 kg. The whole kit (15.5 kg) is still more than one person's 10 kg; the requirement is restated as two bags of 10 kg or less, one per bearer (decision 1A of 2026-10-04, DLT-DDR-004), and is met.
 
 ## 4. Bearer loads (R4)
 
@@ -97,7 +98,7 @@ The fitted doli is a rigid beam on three supports: the wheel under the patient's
 | [L6] | Reduction against two bearers carrying | **79 per cent** (R4 met, estimate) |
 | [L7] | 30 per cent descent, brake on, downhill bearer | 45.6 kg (estimate) |
 | [L8] | Pull to keep rolling on a level trail | 56 N each (estimate) |
-| [L9], [L10] | 15 per cent side slope: roll moment; force at each hand | 170 N m; 155 N (about 16 kg) |
+| [L9], [L10] | 15 per cent side slope: roll moment; force at each hand | 170 N m; 154 N (about 16 kg) |
 
 ## 5. Brake and grip on a 30 per cent grade (R5)
 
@@ -105,16 +106,17 @@ The fitted doli is a rigid beam on three supports: the wheel under the patient's
 
 | Tag | Quantity | Value |
 | --- | --- | --- |
-| [B1], [B2] | Along-slope force; brake torque needed | 402 N; 103 N m |
+| [B1], [B2] | Along-slope force; brake torque needed | 401 N; 103 N m |
 | [B3], [B4] | Brake torque available, wet; factor | 127 N m; **1.23** |
-| [B5] | Wheel load normal to the slope | 962 N |
+| [B5] | Wheel load normal to the slope | 961 N |
 | [B6] | Tyre grip factor on wet clay or mud | **0.84** |
 | [B7] | Tyre grip factor on a wet test ramp | 1.44 |
-| [B8] | Shortfall on wet mud, held by the rear bearer on the hold-back strap | about 7 kg-force |
-| [B9] | Tyre grip factor on wet clay at 20 per cent, the lift-and-carry limit | 1.37 |
-| [B10], [B11] | Hold-back strap, worst case if the wheel slides fully on 30 per cent; factor on the webbing | 402 N; 12 |
+| [B8] | Shortfall on wet mud | about 7 kg-force |
+| [B9] | Tyre grip factor on wet clay at the 20 per cent carry limit | **1.37** |
+| [B10] | Hold-back strap pull on 30 per cent wet clay, wheel at its grip limit | 65 N |
+| [B11] | Hold-back strap strength against the whole along-slope force on 30 per cent | 25 (two 25 mm legs; to confirm) |
 
-**R5 met with the bearer's help, not by the kit alone** (decided, DLT-DDR-003, option A). The brake holds, but on wet clay or mud the tyre would slide before the brake slips; the verification ramp would pass while a real trail might not. Taking part of the weight on the downhill bearer lightens the wheel and makes grip worse, so the shortfall has to be held back along the slope. The hold-back strap ties the rear pole ends to the uphill (rear) bearer's hip belt, so the bearer holds back the shortfall of about 7 kg-force with the legs; even if the wheel slid fully, the strap would see 402 N, a twelfth of its assumed strength. On wet clay steeper than 20 per cent the doli is lifted and carried; at 20 per cent the tyre's grip factor is 1.37 on its own.
+**R5 (decision 7A):** the brake holds (1.23) and the tyre grips on the wet test ramp (1.44), so the verification test passes on paper. On wet clay or mud the tyre would slide before the brake slips on a 30 per cent grade, so the rule is to lift and carry on wet clay steeper than 20 per cent, where the grip factor is still 1.37. The hold-back strap gives the uphill bearer a direct hold on the rear pole ends on every wet descent; on a patch of 30 per cent wet clay met by surprise it would take the 65 N shortfall while the bearers stop and lift. Taking weight on the downhill bearer lightens the wheel and makes grip worse, which is why the help comes along the slope from the uphill bearer.
 
 ## 6. Clamps (R1)
 
@@ -142,8 +144,9 @@ The V jaws wedge the pole, so the friction force is 2.83 times the bolt force ti
 | [S8] | Clamp bolt tension | 1.0 kN each (proof load about 8.4 kN) |
 | [S9] | Wheel rating against twice the wheel load | **0.70** |
 | [S10], [S11] | Tyre rating against twice the wheel load; against the wheel load | **0.53**; 1.05 |
+| [S12] | Wheel proof load before use, twice the rolling weight | **285 kg** |
 
-**R3 met if the proof load holds** (decided, DLT-DDR-003, option A, moving to B only if the proof load fails): the fork unit, arms and clamps meet the 2 to 1 margin; the wheel and tyre do not on their sellers' ratings. Sellers' ratings are working loads with their own unstated margin, so the margin can only be shown by proof-loading the bought wheel: a 285 kg static load (twice the 142.5 kg wheel load) on the wheel and tyre, at TRL 4, before any person is carried. If it fails, a heavier 20 inch tricycle wheel (about 1.05 of twice the load on rating) and a 20 x 2.4 cargo tyre (about 0.70) are fitted, about USD 30 and 0.6 kg more, and the proof load is repeated. Until it passes, R3 is unproven.
+**R3 (decision 6A):** the fork unit, arms and clamps meet the 2 to 1 margin (lowest factor 2.01 with the lift handles' 0.2 kg added). The wheel and tyre do not on their sellers' ratings, which are working loads with their own unstated margin. Each bought cargo wheel, with its tyre at full pressure, is therefore proof-loaded to 285 kg for 10 minutes before the kit is used; a wheel that fails is replaced by the heavier 20 inch tricycle wheel and 20 x 2.4 cargo tyre (about USD 30 more and 0.6 kg heavier), which is proof-loaded the same way.
 
 ## 8. Width, steps and fitting (R6, R8, R2)
 
@@ -153,16 +156,17 @@ The V jaws wedge the pole, so the friction force is 2.83 times the bolt force ti
 | --- | --- | --- |
 | [W1] | Width on the reference doli | 680 mm (R6 met) |
 | [H1], [H2] | Rise of the poles for the wheel to clear a 400 mm step; pole height | 450 mm; 1,170 mm |
-| [H3], [H4] | Lift per bearer: two bearers; four bearers | **71 kg**; 36 kg |
-| [H5] | Steps lifted by four bearers: above | 250 mm |
-| [H6] | Lift per bearer, two bearers, at a 250 mm step (poles rise 300 mm to about 1,020 mm) | 71 kg |
+| [H3], [H4] | Lift per person: two bearers; four people | 71 kg; **36 kg** |
+| [H5] | Pull on each lift handle, four lifting | 350 N |
+| [H6] | Stub bending at the strut from a handle at twice its pull | 13 MPa (factor 16 on yield) |
+| [H7] | Lift handle webbing strength factor | 29 (to confirm) |
 | [T1] | Fitting time, two people | 4.7 min (R2 met, estimate) |
 
-**R8 met with four people, not two** (decided, DLT-DDR-003, option A): the tyre hangs 720 mm below the poles, so clearing a 400 mm step means lifting the poles from knuckle height to chest height; two bearers would lift about 71 kg each. At steps over about 250 mm two helpers lift at webbing handles on the cross stubs with the two bearers, about 36 kg each, as on a doli carried by four today. Below 250 mm two bearers still lift 71 kg each, by up to 300 mm [H6]; that is a new question for Amish. Fitting time (T1) assumes the wheel travels fitted in the fork unit; the steps are listed in `sizing.py`.
+**R8 (decision 9A):** the tyre hangs 720 mm below the poles, so clearing a 400 mm step means lifting the poles from knuckle height to chest height; two bearers would lift about 71 kg each, which is not a safe lift. At steps over about 250 mm four people lift: the two bearers at the pole ends and two helpers at webbing lift handles sewn round the cross stubs (front stub left of centre, rear stub right), about 36 kg each, as on a doli carried by four today. The handles hang below the stubs with 162 mm of hand room under the poles and bed and 69 mm clear of the tyre. Fitting time (T1) assumes the wheel travels fitted in the fork unit; the handles stay on the fork unit and the hold-back strap goes on with the harness loops, so neither adds to it.
 
 ## 9. Cost (R9)
 
-Value-engineering target: USD 1,500. Estimated cost of the constructable design: USD 482 (USD 1,018 under the target) [Q1], [Q2], up USD 27 with the second bag (USD 15), the lift handles (USD 6) and the hold-back strap (USD 6), all estimates. The largest lines are the two harnesses (USD 70), the fork unit (USD 62), the four side arms (USD 60) and the wheel (USD 55).
+Value-engineering target: USD 1,500. Estimated cost of the constructable design: USD 482 (USD 1,018 under the target) [Q1], [Q2]. The decisions add USD 27: the hold-back strap (USD 6), two lift handles (USD 6) and the parts bag (USD 15); the wheel proof load uses the CalRig rig and sandbags. The largest lines are the two harnesses (USD 70), the fork unit (USD 62), the four side arms (USD 60) and the wheel (USD 55).
 
 ## 10. Results against the requirements
 
@@ -172,12 +176,12 @@ Value-engineering target: USD 1,500. Estimated cost of the constructable design:
 | --- | --- | --- |
 | R1 | Clamp factor 2.6 wet; crushing factor 2.0 | Met on paper |
 | R2 | About 4.7 min | Met on paper (estimate) |
-| R3 | Frame 2.01; wheel 0.70 and tyre 0.53 of twice the load; 285 kg static proof load at TRL 4 | Met if the proof load holds (unproven until TRL 4) |
+| R3 | Frame 2.01; wheel 0.70 and tyre 0.53 of twice the load on ratings; every wheel proof-loaded to 285 kg before use | Met on paper for the frame; the wheel and tyre are shown by the proof load (decision 6A) |
 | R4 | 79 per cent | Met on paper (estimate) |
-| R5 | Brake 1.23; grip 1.44 on a ramp, 0.84 on wet mud with the hold-back strap; carried above 20 per cent on wet clay | Met with the bearer's help |
+| R5 | Brake 1.23; grip 1.44 on a wet ramp; 1.37 on wet clay at the 20 per cent carry limit; hold-back strap | Met on paper on the wet ramp; on wet clay met by the carry rule and the hold-back strap (decision 7A) |
 | R6 | 680 mm | Met on the reference doli |
-| R7 | 15.5 kg in two bags of 6.9 and 8.7 kg | Each load met; not one load for one person |
-| R8 | 36 kg each with four people at steps over about 250 mm | Met with four people, not two |
+| R7 | Two bags, 7.2 and 8.3 kg; 15.5 kg in all | Met per bag (decision 8A); not one load for one person |
+| R8 | 36 kg each, four people with two lift handles; 71 kg each with two | Met with four people (decision 9A); not with two |
 | R9 | USD 482 | Under the value-engineering target |
 | R10 | One pull on the tab | Met by design |
 | R11 | Lever 100 to 150 mm behind the pole loop | Met on paper |

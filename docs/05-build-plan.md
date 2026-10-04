@@ -16,7 +16,7 @@ revisions:
 - version: "0.2"
   date: '2026-10-03'
   author: Amish Chadha
-  change: "Round 2 requirement decisions carried in (DLT-DDR-003): wheel proof load before any person is carried, hold-back strap and wet clay rule, two bags, four bearers at steps with lift handles"
+  change: "Amish's decisions 6A to 9A (DLT-DDR-003): hold-back strap (3.12), lift handles (3.13), two bags (3.11), wheel proof load before use, four lifters at steps; overview, step 9, joints 9 and 10 and sketches DLT-DWG-107 and 108 added or redrawn"
 ---
 
 # DoliTrail prototype build plan
@@ -29,9 +29,9 @@ revisions:
 
 ![Every component, pulled apart and numbered in build order](05-build-plan/overview.png)
 
-*Figure 1. The kit in build order. One harness is shown laid flat.*
+*Figure 1. The kit in build order. One harness is shown laid flat; the lift handles are sewn on the fork unit's stubs.*
 
-The kit turns a family's bamboo doli into a wheeled stretcher with a brake. A welded steel fork unit holds a 20 inch wheel; four side arms slide into its two cross stubs and end in rubber-lined V saddles that the bamboo poles sit in, each closed by an upper jaw and two T-handle bolts. A disc brake on the wheel is worked from a lever strapped to the front right pole. A cross strap keeps the bed off the tyre, three patient straps hold the patient, and two harnesses take the pole ends in slings at each bearer's knuckle height. Two webbing lift handles on the cross stubs let two helpers lift at steps, and a hold-back strap ties the rear pole ends to the rear bearer's hip belt on wet descents. Eight components are made (the fork unit, side arms, upper jaws, liners, lever mount, harnesses, lift handles and hold-back strap) by cutting, bending, drilling, welding, gluing and sewing; the rest are bought bicycle parts, fasteners and webbing. The kit travels in two bags, one per bearer. Parts cost about USD 482. The sizes are for the reference doli: two 60 mm bamboo poles at 550 mm centres; the kit adjusts to poles of 40 to 80 mm at 450 to 600 mm centres.
+The kit turns a family's bamboo doli into a wheeled stretcher with a brake. A welded steel fork unit holds a 20 inch wheel; four side arms slide into its two cross stubs and end in rubber-lined V saddles that the bamboo poles sit in, each closed by an upper jaw and two T-handle bolts. A disc brake on the wheel is worked from a lever strapped to the front right pole. A cross strap keeps the bed off the tyre, three patient straps hold the patient, and two harnesses take the pole ends in slings at each bearer's knuckle height. A hold-back strap ties the rear bearer's hip belt to the rear pole ends for descents, and two webbing lift handles sewn round the cross stubs let two helpers lift at steps. The kit walks in with the two bearers in two bags. Eight components are made (the fork unit, side arms, upper jaws, liners, lever mount, harnesses, hold-back strap and lift handles) by cutting, bending, drilling, welding, gluing and sewing; the rest are bought bicycle parts, fasteners, webbing and bags. Parts cost about USD 482. The sizes are for the reference doli: two 60 mm bamboo poles at 550 mm centres; the kit adjusts to poles of 40 to 80 mm at 450 to 600 mm centres.
 
 ## 2. What changed to make it buildable
 
@@ -47,9 +47,9 @@ The kit turns a family's bamboo doli into a wheeled stretcher with a brake. A we
 | Harness | "Pole-end cups" | Pole loops on adjustable slings | Fits every pole end and bearer |
 | Wheel fixing | Not stated | Solid axle and nuts in slots open downward | Nothing to open by mistake |
 | Bed | Not considered | Clamps on bare pole; the bed's lashing is slid aside at the four clamp points | The inboard bolt passes beside the pole |
-| Steps | Two bearers lift | Four bearers at steps over about 250 mm, the two helpers lifting at webbing handles on the cross stubs | Two bearers would each lift about 71 kg to chest height; four lift about 36 kg each (DLT-DDR-003) |
-| Wet descents | Brake and tyre only | A hold-back strap from the rear bearer's hip belt to the rear pole ends; on wet clay steeper than 20 per cent the doli is lifted and carried | On wet clay the tyre grips about 7 kg-force short of holding the rated load on a 30 per cent grade (DLT-DDR-003) |
-| Carrying the kit | One bag | Two bags, one per bearer, about 6.9 kg and 8.7 kg | Each load under 10 kg (DLT-DDR-003) |
+| Descents on wet ground | Brake only | A hold-back strap: webbing caps over the rear pole ends, legs to a ring, a tail to the rear bearer's hip belt | The tyre can slide on wet clay before the brake slips; the uphill bearer holds the doli back |
+| Steps | Two bearers lift | Two webbing lift handles sewn round the cross stubs for two helpers | Four people share the lift, about 36 kg each |
+| Carrying the kit | One bag | Two bags, one per bearer: about 7.2 and 8.3 kg | Each load stays under 10 kg |
 
 ![Cut across the doli through the front clamps](../media/cutaway.png)
 
@@ -145,7 +145,7 @@ Buy eight M8 x 130 mm T-handle bolts with 25 mm washers for the clamps, and four
 
 ### 3.6 Wheel (bought)
 
-Buy a 20 inch (ISO 406) cargo or tricycle wheel with a double-wall rim, 36 spokes of 2.0 mm or heavier and a steel front disc hub 100 mm over the locknuts, with a solid 3/8 inch axle and nuts (not quick release). Fit a 20 x 2.125 knobbly tyre and tube. Bolt the 203 mm rotor to the hub on the left side. Check the seller's ratings against the design decisions register. No light wheel or tyre is catalogue-rated for twice the 142 kg wheel load, so this wheel and tyre are proved by a 285 kg static proof load (section 5) before any person is carried. If the proof load fails, the wheel is replaced by a heavier 20 inch tricycle wheel with 13 gauge spokes and a 20 x 2.4 cargo tyre, and the proof load is repeated on the new wheel.
+Buy a 20 inch (ISO 406) cargo or tricycle wheel with a double-wall rim, 36 spokes of 2.0 mm or heavier and a steel front disc hub 100 mm over the locknuts, with a solid 3/8 inch axle and nuts (not quick release). Fit a 20 x 2.125 knobbly tyre and tube. Bolt the 203 mm rotor to the hub on the left side. Check the seller's ratings against the design decisions register.
 
 ![Close-up: wheel axle in the dropouts, cut](05-build-plan/joint-03.png)
 
@@ -200,7 +200,7 @@ Buy 50 mm polyester webbing: one cross strap of 1.6 m with a cam buckle, and thr
 
 **How to make it.**
 
-1. Cut and heat-seal the webbing: belt 1,000 mm, shoulder straps 600 mm, chest strap 300 mm, slings 500 mm, loops 400 mm. Sew a steel D-ring to the back of the rear bearer's hip belt for the hold-back strap.
+1. Cut and heat-seal the webbing: belt 1,000 mm, shoulder straps 600 mm, chest strap 300 mm, slings 500 mm, loops 400 mm.
 2. Sew the shoulder straps to the belt at the back, 180 mm apart, crossing to the front; add the pads and the chest strap.
 3. Sew a sling to each side of the belt, 660 mm apart; fit a cam buckle in each sling.
 4. Fold each loop and box-and-cross stitch it to its sling with UV-resistant thread.
@@ -213,34 +213,58 @@ Buy 50 mm polyester webbing: one cross strap of 1.6 m with a cam buckle, and thr
 
 **Check before moving on.** Hang 50 kg from each loop for one minute: no stitch pulls.
 
-### 3.11 Lift handles and hold-back strap
+### 3.11 Two carry bags, fitting card, ties and pump (bought)
 
-**What they are and what they are made from.** Sewn by the same tailor from 25 mm polyester webbing. Two lift handles, each about 400 mm of webbing wrapped round a cross stub and bar-tacked into a loop that hangs about 140 mm below it: one on the front stub left of centre, one on the rear stub right of centre, so the two helpers stand on opposite sides. One hold-back strap: two loops that slip onto the rear pole ends, joined to a single tail about 600 mm long with a cam buckle and a steel snap hook.
+Two bags, one for each bearer. A canvas wheel bag about 700 x 340 x 560 mm with shoulder straps takes the fork unit with the wheel, brake and lift handles, and the pump kit: about 7.2 kg packed. A canvas backpack of about 45 litres takes the side arms, jaws, bolts, lever mount, straps, harnesses, hold-back strap and the fitting card: about 8.3 kg packed. Also buy an A4 laminated fitting card with the pictures of section 4 and the safety stops; eight hook-and-loop ties; a mini pump, tyre levers, patches and a spare tube.
 
-**How to make them.**
+### 3.12 Hold-back strap
 
-1. Lift handles: wrap the webbing twice round a 30 mm square bar, then bar-tack the loop closed below it with UV-resistant thread; heat-seal the ends.
-2. Hold-back strap: sew two pole loops about 200 mm round, join their tails in a Y, and sew the cam buckle and snap hook to the single tail.
+![Making sketch: hold-back strap](../cad/drawings/DLT-DWG-107.png)
 
-**How they fit the parts next to them.** Each handle wraps the stub between the strut and the set screw, clear of the wheel by about 80 mm (Figure 11). The hold-back loops ride on the rear pole ends, outboard of the harness pole loops (Figure 12); the snap hook clips to the D-ring on the rear bearer's hip belt and the cam buckle sets the length so the strap is taut with the bearer standing upright.
+**What it is and what it is made from.** A Y-shaped strap sewn by a tailor that lets the rear (uphill) bearer hold the doli back on a wet descent. Two closed end caps of 50 mm polyester webbing, 40 mm deep, slip over the rear pole ends, each with a 25 mm cam strap round its mouth; two 25 mm webbing legs, about 420 mm long, run from the caps to a 40 mm steel ring; a 600 mm tail runs from the ring to a cam buckle that clips to the rear bearer's hip belt.
+
+**How to make it.**
+
+1. Cut and heat-seal the webbing: two cap pieces of 50 mm webbing 300 mm long, two legs and a tail of 25 mm webbing.
+2. Sew each cap into a closed sleeve that fits over an 80 mm pole end, and sew a 25 mm cam strap round its mouth so it cinches down onto a 40 mm pole.
+3. Sew one end of each leg to the closed end of a cap, and the other end round the ring. Sew the tail round the ring and fit the cam buckle on its free end.
+4. Box-and-cross stitch every joint with UV-resistant thread.
+
+**How it fits the parts next to it.**
+
+![Close-up: hold-back strap cap on a rear pole end](05-build-plan/joint-10.png)
+
+*Figure 11. A hold-back cap on a rear pole end, just behind the harness pole loop.*
+
+Each cap goes over a rear pole end, cinched tight, so the pull bears on the end of the pole and the cap cannot slide off backward. It sits about 5 mm behind the harness pole loop. The tail clips to the rear bearer's hip belt and is set so the bearer leans back slightly against it.
+
+**Check before moving on.** Hang 100 kg from the ring for one minute, with both caps on a length of 60 mm pole: no stitch pulls and neither cap moves.
+
+### 3.13 Lift handles
+
+![Making sketch: lift handle](../cad/drawings/DLT-DWG-108.png)
+
+**What it is and what it is made from.** Two handles of 50 mm polyester webbing, one on each cross stub of the fork unit, for two helpers at steps. Each is a 40 mm wide band sewn shut round the stub with a hand loop hanging 130 mm below it, 70 mm across, with a 60 mm foam grip on the bottom of the loop.
+
+**How to make it.**
+
+1. After the fork unit is painted, wrap the webbing round the front stub 100 mm to the left of its centre and sew it shut by hand, tight on the stub.
+2. Sew the hand loop below it, and slide the foam tube on before closing the loop.
+3. Do the same on the rear stub, 100 mm to the right of its centre, so the two helpers stand on opposite sides of the doli.
+
+**How it fits the parts next to it.**
 
 ![Close-up: lift handle on the front cross stub](05-build-plan/joint-09.png)
 
-*Figure 11. A lift handle wrapped round the front cross stub.*
+*Figure 12. A lift handle on the front cross stub, between the strut and the set screw.*
 
-![Close-up: hold-back strap loops on the rear pole ends](05-build-plan/joint-10.png)
+The band sits between the strut and the set screw's nut, so it cannot slide into either. The loop hangs 69 mm clear of the tyre, with about 160 mm of room for a hand under the pole and the bed. The handles stay on the fork unit and travel in the wheel bag.
 
-*Figure 12. The hold-back strap loops on the rear pole ends, outboard of the harness pole loops.*
-
-**Check before moving on.** Hang 75 kg from each lift handle and 80 kg from the hold-back strap's snap hook for one minute each: no stitch pulls.
-
-### 3.12 Carry bags, fitting card, ties and pump (bought)
-
-Two canvas bags with shoulder straps, one per bearer: the wheel bag, about 700 x 340 x 560 mm, takes the fork unit with the wheel and brake fitted and the pump (about 6.9 kg packed), and the parts bag, about 500 x 300 x 250 mm, takes the arms, jaws, bolts, lever mount, straps, harnesses, lift handles and hold-back strap (about 8.7 kg packed); an A4 laminated fitting card with the pictures of section 4 and the safety stops; eight hook-and-loop ties; a mini pump, tyre levers, patches and a spare tube.
+**Check before moving on.** Hang 70 kg from each loop for one minute: no stitch pulls and the band does not slide on the stub.
 
 ## 4. Putting it together
 
-Steps 1 to 4 are done once in the workshop; the wheel then stays in the fork unit. Steps 5 to 9 are the fitting to a doli, about five minutes for two people.
+Steps 1 to 4 are done once in the workshop; the wheel and the lift handles then stay on the fork unit. Steps 5 to 9 are the fitting to a doli, about five minutes for two people.
 
 ### Step 1: fit the rotor and the wheel
 
@@ -284,17 +308,17 @@ Lay each upper jaw over its pole; run both T-bolts into the nuts in even turns u
 
 Pass the strap round both poles just ahead of the wheel's top, under the bed, and pull it tight.
 
-### Step 8: fit the lever mount and the lift handles
+### Step 8: fit the lever mount on the front right pole
 
 ![Step 8](05-build-plan/step-08.png)
 
-Wrap a lift handle round each cross stub between the strut and the set screw (front stub left of centre, rear stub right of centre) if they are not left on the frame. Strap the lever mount on top of the front right pole about 150 mm behind where the front bearer's pole loop will sit. Clamp the lever on its bar, blade toward the bearer's hand. Tie the housing along the arm and the pole with the hook-and-loop ties, with no tight bends. Pull the lever: the wheel locks; set the parking lock: it stays locked.
+Strap the mount on top of the front right pole about 150 mm behind where the front bearer's pole loop will sit. Clamp the lever on its bar, blade toward the bearer's hand. Tie the housing along the arm and the pole with the hook-and-loop ties, with no tight bends. Pull the lever: the wheel locks; set the parking lock: it stays locked.
 
 ### Step 9: patient straps, harness loops and hold-back strap
 
 ![Step 9](05-build-plan/step-09.png)
 
-Pass the three patient straps round both poles at the chest, hips and legs. The bearers put on their harnesses, set the slings to knuckle height and slip the pole loops over the pole ends. Slip the hold-back loops over the rear pole ends, outboard of the harness loops, and clip the snap hook to the rear bearer's hip belt before any descent.
+Pass the three patient straps round both poles at the chest, hips and legs. The bearers put on their harnesses, set the slings to knuckle height and slip the pole loops over the pole ends. Slip the hold-back caps over the rear pole ends behind the rear bearer's pole loops, cinch them, and clip the tail to the rear bearer's hip belt.
 
 ## 5. First checks
 
@@ -307,14 +331,14 @@ These are listed here and recorded in a TRL 4 test report. Sandbags stand in for
 | Clamp range | R1 | Close a clamp on 40, 60 and 80 mm bamboo | Both liners touch; jaw clear of the saddle |
 | Clamp slip | R1 | Pull the fitted frame along the poles with CalRig | No slip at 1.5 kN on wet poles |
 | Proof load | R3 | 260 kg of sandbags on the fitted doli, wheel on a block, 10 min | No permanent set in the frame, no weld cracks, no clamp movement |
-| Wheel proof load | R3 | 285 kg static load on the bought wheel and tyre alone, 10 min, before any person is carried | No spoke, rim or tyre damage; if it fails, fit the heavier tricycle wheel and cargo tyre and repeat |
+| Wheel proof load | R3 | Every bought wheel, before the kit is used: 285 kg on the wheel alone, tyre at full pressure, 10 min | No spoke, rim or tyre damage; if it fails, fit the heavier 20 inch tricycle wheel and 20 x 2.4 cargo tyre and repeat |
 | Fitting time | R2 | Two people with only the fitting card | Under 5 min |
 | Bearer load | R4 | Load cells in the slings, level trail | Average load per bearer down by 60 per cent or more |
 | Brake hold | R5 | Rated sandbag load on a wet 30 per cent ramp, lever locked | Stays put for 5 min |
-| Hold-back on wet clay | R5 | Rated sandbag load on a wet clay slope, lever locked, the rear bearer on the hold-back strap | The bearer holds the doli still; force on the strap recorded |
+| Hold-back strap | R5 | Rated sandbag load on a wet ramp, rear bearer clipped in, pull measured | The bearer holds the doli back standing upright |
 | Width | R6 | Measure over the clamps | 700 mm or less on the reference doli |
-| Mass | R7 | Weigh each of the two packed bags | Each 10 kg or less |
-| Step | R8 | 400 mm step with sandbags, four bearers: two at the pole ends, two helpers at the lift handles | Wheel clears the step; the lift per person recorded |
+| Mass | R7 | Weigh each packed bag | Each bag 10 kg or less |
+| Step | R8 | 400 mm step, four people: two bearers and two helpers at the lift handles | Over without removing the wheel; recorded load per person about 36 kg |
 | Release | R10 | Pull each tab, gloved hand | Free in 3 s |
 | Brake reach | R11 | Bearers of 1.5 to 1.8 m | Lever and lock worked without letting go |
 
@@ -324,15 +348,15 @@ Work stops at each point until what is listed is true.
 
 - **S1, before welding:** jig checked square; fire extinguisher and screens in place.
 - **S2, before any load:** every weld inspected by eye for cracks and full fusion; every set screw and T-bolt tight; wheel nuts tight.
-- **S3, before the proof load:** sandbags only; people stand clear of the doli's sides; the wheel rests on a block.
-- **S4, before the wet ramp test:** the proof loads (section 5), including the 285 kg static proof load of the wheel and tyre, have passed; a person holds a safety rope to the rear poles; the ramp has a run-out clear of people.
-- **S5, before any trail trial with a person:** the 285 kg static proof load of the wheel and tyre and the ramp test have passed, the bearers have practised with sandbags, including the hold-back strap and a four-bearer lift at a step, and the partner's crew agree. No person is carried on a wheel or tyre that has not passed its proof load. The first person carried is a healthy volunteer, not a patient. Bearers keep both hands on the poles and never roll through moving water. On every descent the rear bearer's hold-back strap is clipped to the hip belt; on wet clay or mud steeper than 20 per cent the doli is lifted and carried, not rolled. At any step over about 250 mm four bearers lift, two at the pole ends and two helpers at the lift handles; two bearers never lift the doli over such a step.
-- **S6, every fitting:** lift handles and hold-back strap checked for cuts and pulled stitches; clamps checked by shaking the doli; poles checked for splits at the clamp points; brake pulled and the lock tried before anyone is strapped on.
+- **S3, before the proof loads (frame and every bought wheel):** sandbags only; people stand clear of the doli's sides; the wheel rests on a block.
+- **S4, before the wet ramp test:** the proof loads (section 5) have passed; a person holds a safety rope to the rear poles; the ramp has a run-out clear of people.
+- **S5, before any trail trial with a person:** the ramp test has passed, the bearers have practised with sandbags, and the partner's crew agree. The first person carried is a healthy volunteer, not a patient. Bearers keep both hands on the poles and never roll through moving water. On every wet descent the rear bearer is clipped to the hold-back strap; on wet clay steeper than 20 per cent the bearers lift and carry. At steps of more than about 250 mm four people lift, two of them at the lift handles; two bearers never lift the fitted doli over a step alone.
+- **S6, every fitting:** clamps checked by shaking the doli; poles checked for splits at the clamp points; brake pulled and the lock tried before anyone is strapped on.
 
 ## 7. Tools, skills and workspace
 
 - Workshop: a welder (stick or MIG) and a competent welder; angle grinder with cutting and grinding discs; drill press or hand drill with 9 mm bit; bench vice and a 90 deg bending former; files; a flat bench for the jig.
-- Tailor: a heavy sewing machine for webbing and bar-tacks, UV-resistant thread, a hot knife for sealing.
+- Tailor: a heavy sewing machine for webbing, UV-resistant thread, a hot knife for sealing.
 - Bicycle mechanic: spoke key, 15 mm spanner, Torx or hex keys for the rotor and caliper, cable cutters.
 - Fitting: no tools beyond the kit; the T-handles are turned by hand.
 - Space: a covered workshop for the steel; a level yard and a test ramp for the checks.
@@ -340,7 +364,7 @@ Work stops at each point until what is listed is true.
 ## 8. Where the numbers come from
 
 - Model: `cad/src/model.py` (sizes, constructability checks), `cad/step/` and `cad/stl/`.
-- Drawings: `cad/drawings/DLT-DWG-001` (general arrangement) and `DLT-DWG-101` to `106` (making sketches).
+- Drawings: `cad/drawings/DLT-DWG-001` (general arrangement) and `DLT-DWG-101` to `108` (making sketches).
 - Calculations: `docs/04-calcs/01-sizing.md` (DLT-CAL-001), `docs/04-calcs/sizing.py`, `docs/04-calcs/results.csv`.
 - Bill of materials: `bom/bom.csv`.
 - Pictures: `cad/src/build_plan_media.py`.

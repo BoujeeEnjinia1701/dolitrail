@@ -4,7 +4,7 @@ Run from the repo root:  python cad/src/build_plan_media.py [overview|sheets|joi
 With no argument it draws everything. Every picture is drawn from cad/src/model.py, so the
 pictures and the model never disagree:
     docs/05-build-plan/overview.png    every component pulled apart, numbered in build order
-    cad/drawings/DLT-DWG-101 to 106    making sketches for the made components
+    cad/drawings/DLT-DWG-101 to 108    making sketches for the made components
     docs/05-build-plan/joint-NN.png    close-ups of the joints that need explaining
     docs/05-build-plan/step-NN.png     one picture per assembly step
 The clamp pictures show the front right clamp; the other three are the same.
@@ -31,7 +31,7 @@ B = dict(K["brake"])
 MT = dict(K["mount"])
 COL = {"fork": "#0F766E", "arm": "#155E75", "jaw": "#0E7490", "liner": "#1F2937", "bolt": "#6B7280",
        "tyre": "#27272A", "brake": "#B91C1C", "mount": "#155E75", "cross": "#EA580C", "patient": "#DC2626",
-       "harness": "#D97706", "pole": "#C8A96A", "bag": "#78716C", "handles": "#7C3AED", "holdback": "#1D4ED8"}
+       "harness": "#D97706", "pole": "#C8A96A", "bag": "#78716C", "holdback": "#7C3AED", "handle": "#CA8A04"}
 XS, YP = P["stub_x"], -P["pole_y"]
 
 
@@ -53,6 +53,16 @@ def poles(x0=-650.0, x1=650.0):
 
 WHEEL = Compound([W["tyre"], W["rim"], W["hub"], W["axle and nuts"], W["spokes"]])
 FORK = K["fork"][0][1]
+HANDLES = allk("handles")
+FORKH = Compound([FORK, HANDLES])          # the lift handles stay sewn on the fork unit
+HB = dict(K["holdback"])
+HOLDBACK = allk("holdback")
+
+
+def parts_bag(origin=(0, 0, 0)):
+    """Second carry bag (decision 8A): a canvas backpack, drawn as an open box."""
+    ox, oy, oz = origin
+    return Pos(ox, oy, oz + 225) * Box(330, 220, 450) - Pos(ox, oy, oz + 235) * Box(310, 200, 450)
 
 
 def components():
@@ -71,10 +81,10 @@ def components():
         Part("Cross strap", allk("cross"), COL["cross"], 9, (0, 0, 1350)),
         Part("Patient straps (3)", allk("patient"), COL["patient"], 10, (0, 0, 1750)),
         Part("Bearer harnesses (2), one shown flat", Pos(1500, -1900, 0) * harness, COL["harness"], 11, (0, 0, 0)),
-        Part("Carry bags (2), card, ties, pump (bought)", Compound([Pos(2300, 1600, 0) * M.bag(P), Pos(2300, 2100, 0) * M.bag(P)]),
-             COL["bag"], 12, (0, 0, 0)),
-        Part("Lift handles (2), webbing", allk("handles"), COL["handles"], 16, (0, 0, -1000)),
-        Part("Hold-back strap, pole-end loops", allk("holdback"), COL["holdback"], 17, (-300, 0, 600)),
+        Part("Hold-back strap", HOLDBACK, COL["holdback"], 12, (-250, 0, 0)),
+        Part("Lift handles (2), sewn on the stubs", HANDLES, COL["handle"], 13, (0, 0, -380)),
+        Part("Wheel bag, parts bag, card, ties, pump (bought)",
+             Compound([Pos(2300, 1600, 0) * M.bag(P), parts_bag((2300, 2150, 0))]), COL["bag"], 14, (0, 0, 0)),
     ]
 
 
@@ -157,6 +167,31 @@ def sheets():
                         "  box-and-cross stitched, sewn with UV thread.",
                         "Set: pole loops at the bearer's knuckle height."],
                        DATE, inset_view=(60, -90))
+    pe = Part("Rear pole ends", Compound(C["poles"]) & box(-1200, -900, -500, 500, 600, 900), "#D1D5DB")
+    bv.component_sheet(Part("Hold-back strap", HOLDBACK, COL["holdback"]), [pe], "DoliTrail", "DLT-DWG-107",
+                       "Hold-back strap", "50 and 25 mm polyester webbing, 40 mm steel ring, cam buckle",
+                       ["Two end caps: 50 webbing sewn into closed sleeves",
+                        f"  {P['cap_len']:.0f} deep, a 25 cam strap round each mouth",
+                        "  to cinch it on poles of 40 to 80.",
+                        "Two legs of 25 webbing, about 420 long, from the",
+                        "  cap ends to one 40 steel ring.",
+                        f"Tail of 25 webbing, {P['hb_tail']:.0f} long, ring to a cam buckle",
+                        "  that clips to the rear bearer's hip belt.",
+                        "Box-and-cross stitch every joint, UV thread.",
+                        "Check: hang 100 kg from the ring for 1 min."],
+                       DATE, inset_view=(24, -58))
+    h1 = pick("handles", "front")
+    bv.component_sheet(Part("Lift handle", h1, COL["handle"]), [Part("Fork unit", FORK, "#D1D5DB")], "DoliTrail", "DLT-DWG-108",
+                       "Lift handle (2)", "50 mm polyester webbing, 25 mm foam tube",
+                       [f"Band of 50 webbing round a cross stub, {P['handle_w']:.0f} wide,",
+                        "  sewn shut by hand round the painted stub.",
+                        f"Hand loop hangs {P['handle_drop']:.0f} below the stub, 70 across.",
+                        "Foam grip sleeve 60 long on the bottom of the loop.",
+                        f"Front stub: {P['handle_y']:.0f} left of centre; rear stub:",
+                        f"  {P['handle_y']:.0f} right of centre (helpers on opposite sides).",
+                        "Sits between the strut and the set screw nut.",
+                        "Check: hang 70 kg from the loop for 1 min."],
+                       DATE, inset_view=(24, -58))
 
 
 def joints():
@@ -213,24 +248,28 @@ def joints():
               Part("Patient strap with cam buckle and pull tab", pick("patient", "strap", "2"), COL["patient"])],
              OUT / "joint-08.png", "Joint 8: patient strap and quick-release buckle",
              "Round both poles; one pull on the red tab frees it", elev=30, azim=-60)
-    # 9 lift handle on the front cross stub (DLT-DDR-003)
-    yh = P["handle_y"][0]
-    bv.joint([Part("Cross stub", FORK & box(XS - 40, XS + 40, yh - 70, yh + 70, 480, 530), COL["fork"]),
-              Part("Lift handle", pick("handles", "front"), COL["handles"])],
+    # 9 lift handle on the front cross stub
+    hy = P["handle_y"]
+    w9 = box(XS - 90, XS + 90, hy - 110, hy + 110, 330, 560)
+    bv.joint([Part("Cross stub and strut (fork unit)", FORK & w9, COL["fork"]),
+              Part("Lift handle", pick("handles", "front"), COL["handle"]),
+              Part("Set screw", Compound([s for n, s in K["bolts"] if n.startswith("set")]) & w9, COL["bolt"])],
              OUT / "joint-09.png", "Joint 9: lift handle on the front cross stub",
-             "Webbing wrapped round the stub between the strut and the set screw; a helper lifts here at steps", elev=18, azim=-60)
-    # 10 hold-back strap on the rear pole ends (DLT-DDR-003)
-    xr = P["pole_x"][0]
-    bv.joint([Part("Rear pole ends", Compound(C["poles"]) & box(xr, xr + 200, -400, 400, 600, 800), COL["pole"]),
-              Part("Harness pole loops", Compound([s for n, s in K["harness"] if n.split()[-1] in ("3", "4")]) & box(xr, xr + 200, -400, 400, 500, 900), COL["harness"]),
-              Part("Hold-back strap loops", allk("holdback"), COL["holdback"])],
-             OUT / "joint-10.png", "Joint 10: hold-back strap loops on the rear pole ends",
-             "Outboard of the harness pole loops; the tail clips to the rear bearer's hip belt", elev=20, azim=-130)
+             "Webbing sewn shut round the stub between the strut and the set screw; hand loop below", elev=16, azim=-60)
+    # 10 hold-back strap cap on a rear pole end
+    x0 = P["pole_x"][0]
+    bv.joint([Part("Pole end", Compound(C["poles"]) & box(x0, x0 + 200, -P["pole_y"] - 60, -P["pole_y"] + 60, 600, 900), COL["pole"]),
+              Part("Harness pole loop", pick("harness", "loop", "4"), COL["harness"]),
+              Part("Hold-back end cap", HB["hold-back cap right"], COL["holdback"]),
+              Part("Hold-back leg", HB["hold-back legs ring and tail"] & box(x0 - 200, x0, -400, 0, 600, 900), COL["holdback"])],
+             OUT / "joint-10.png", "Joint 10: hold-back strap cap on a rear pole end",
+             "The cap bears on the end of the pole; the leg runs back to the ring and the rear bearer's belt",
+             elev=20, azim=-130)
 
 
 def steps():
     pl = Part("Doli poles", poles(-700, 1450), COL["pole"])
-    fork = Part("Fork unit", FORK, COL["fork"], None, (0, 0, 0))
+    fork = Part("Fork unit with lift handles", FORKH, COL["fork"], None, (0, 0, 0))
     wheel = Part("Wheel with rotor", Compound([WHEEL, B["rotor"]]), COL["tyre"], None, (0, 0, -350))
     cal = Part("Caliper", B["caliper"], COL["brake"], None, (0, -200, 0))
     arms = Part("Side arms", allk("arms"), COL["arm"], None, (0, 0, 0))
@@ -240,13 +279,13 @@ def steps():
     lin = Part("Liners", allk("liners"), COL["liner"], None, (0, 0, 0))
     jaws = Part("Upper jaws and T-bolts", Compound([allk("jaws")] + [s for n, s in K["bolts"] if n.startswith("bolt")]),
                 COL["jaw"], None, (0, 0, 250))
-    frame_up = Part("Frame and wheel", Compound([FORK, allk("arms"), allk("liners"), WHEEL, B["rotor"], B["caliper"],
+    frame_up = Part("Frame and wheel", Compound([FORKH, allk("arms"), allk("liners"), WHEEL, B["rotor"], B["caliper"],
                                                  Compound([s for n, s in K["bolts"] if n.startswith("set")])]), COL["fork"], None, (0, 0, -300))
     cross = Part("Cross strap", allk("cross"), COL["cross"], None, (0, 0, 250))
     mnt = Part("Lever mount, lever and cable", Compound([allk("mount"), B["lever"], B["cable"]]), COL["mount"], None, (0, 0, 200))
     pat = Part("Patient straps", allk("patient"), COL["patient"], None, (0, 0, 250))
-    har = Part("Harness pole loops and hold-back strap", Compound([allk("harness"), allk("holdback")]), COL["harness"], None, (0, 0, 250))
-    hnd = Part("Lift handles", allk("handles"), COL["handles"], None, (0, 0, -250))
+    har = Part("Harness pole loops", allk("harness"), COL["harness"], None, (0, 0, 250))
+    hbk = Part("Hold-back strap", HOLDBACK, COL["holdback"], None, (-250, 0, 150))
     seq = [
         ([fork], [wheel], "Step 1: fit the rotor and the wheel", "Rotor on the hub, left side; axle up into the slots, nuts outside", [], -58),
         ([fork, wheel], [cal], "Step 2: bolt the caliper to the lobe", "Centre it on the rotor; set the pads 0.5 mm off", [], -58),
@@ -255,9 +294,9 @@ def steps():
         ([], [frame_up], "Step 5: frame under the poles, wheel under the hips", "Doli raised on knees or blocks; saddles under both poles", [pl], -50),
         ([frame_up], [jaws], "Step 6: close the four clamps", "Jaws over the poles; T-bolts into the nuts, even turns, hand tight", [pl], -50),
         ([frame_up, jaws], [cross], "Step 7: fit the cross strap", "Round both poles above the wheel, under the bed; pull tight", [pl], -50),
-        ([frame_up, jaws, cross], [mnt, hnd], "Step 8: lever mount and lift handles", "Lever mount: two cam straps on the front right pole; handles round the cross stubs", [pl], -50),
-        ([frame_up, jaws, cross, mnt, hnd], [pat, har], "Step 9: patient straps, harness loops and hold-back strap",
-         "Straps round both poles; pole loops on the pole ends; hold-back loops on the rear ends", [Part("Doli poles", poles(-1150, 1400), COL["pole"])], -50),
+        ([frame_up, jaws, cross], [mnt], "Step 8: lever mount on the front right pole", "Two cam straps; housing tied along the arm and pole", [pl], -50),
+        ([frame_up, jaws, cross, mnt], [pat, har, hbk], "Step 9: patient straps, harness loops, hold-back strap",
+         "Straps round both poles; pole loops on the pole ends; caps over the rear pole ends", [Part("Doli poles", poles(-1150, 1400), COL["pole"])], -50),
     ]
     for i, (done, new, title, sub, ctx, az) in enumerate(seq, 1):
         bv.step([Part(q.name, q.shape, q.color) for q in done], new, OUT / f"step-{i:02d}.png", title, sub, context=ctx,

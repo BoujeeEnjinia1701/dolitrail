@@ -1,4 +1,4 @@
-"""DoliTrail general arrangement sheet DLT-DWG-001, Rev P2 (TRL 3; DLT-DDR-002 applied).
+"""DoliTrail general arrangement sheet DLT-DWG-001, Rev P3 (TRL 3; DLT-DDR-002 and DLT-DDR-003 applied).
 
 Run from the repo root:  python cad/src/sheets.py
 Writes cad/drawings/DLT-DWG-001.svg, .pdf and .png from cad/src/model.py with .kit/drawing.py: the
@@ -33,7 +33,7 @@ def assembly(k, x0=-700.0, x1=1400.0):
     win = Pos((x0 + x1) / 2, 0, 600) * Box(x1 - x0, 1500, 1400)
     poles = Compound(c["poles"]) & win
     w = dict(k["wheel"])
-    kit = [s for key in ("fork", "arms", "jaws", "liners", "bolts", "mount", "cross", "harness", "handles", "holdback") for _, s in k[key]]
+    kit = [s for key in ("fork", "arms", "jaws", "liners", "bolts", "mount", "cross", "harness", "handles") for _, s in k[key]]
     kit = [s for s in kit if s.bounding_box().max.X > x0 and s.bounding_box().min.X < x1]
     kit += [w["tyre"], w["rim"], w["hub"], w["axle and nuts"]] + [s for _, s in k["brake"] if True]
     return Compound(kit + [poles])
@@ -55,7 +55,7 @@ def main():
               material="Kit per bom/bom.csv; poles are the family's doli (reference shown, cut short). PRELIMINARY, NOT FOR FABRICATION",
               revisions=[("P1", "Preliminary GA for TRL 3 (from cad/src/model.py)", DATE, "AC"),
                          ("P2", "DLT-DDR-002: design for construction", DATE, "AC"),
-                         ("P3", "DLT-DDR-003: lift handles on the cross stubs, hold-back strap", DATE, "AC")])
+                         ("P3", "DLT-DDR-003: lift handles on the stubs; hold-back strap noted", DATE, "AC")])
     s.add_ortho(views)
     vw = (sb.max.Y - sb.min.Y) * SEC_K
     vh = (sb.max.Z - sb.min.Z) * SEC_K
@@ -74,7 +74,6 @@ def main():
     L += leader(X(120), Z(P["stub_z"]), tx, 54, "STUB (1), SPIGOT (2)")
     L += leader(X(0), Z(300), tx, 61, "WHEEL (6), CUT EDGE")
     L += leader(X(P["strut_y"]), Z(468), tx, 68, "STRUT (1)")
-    L += leader(X(P["handle_y"][0] + P["stub"][0] / 2 + 2), Z(420), tx, 75, "LIFT HANDLE (16)")
     s._dim(X(-yp), Z(P["pole_z"]), X(-yp), Z(0), f"{P['pole_z']:.0f}", "left", off=4)
     s._layers += L
     s.add_notes("Main sizes and figures (mm unless stated)", [
@@ -88,8 +87,8 @@ def main():
         "Clamps: 90 deg V, 5 rubber liner, two M8 T-bolts at 104 centres",
         "Brake: 203 rotor, cable caliper; lever with lock on front right pole",
         "Cross strap 50 webbing round both poles above the wheel",
-        "Lift handles (16) on both stubs; hold-back strap (17) on the rear pole ends",
-        "Rated patient 120 kg; rolling weight about 142 kg",
+        f"Lift handles (17) on the stubs, {P['handle_y']:.0f} off centre; hold-back strap (16) on rear pole ends, not shown",
+        "Rated patient 120 kg; rolling weight about 142.5 kg",
         "Third-angle; X forward, Y to the left; (n) = BOM line",
     ], x=276, y=118, width=146)
     out = s.save(ROOT / "cad" / "drawings" / "DLT-DWG-001")

@@ -1,12 +1,10 @@
-"""DoliTrail sizing calculations (DLT-CAL-001), on the constructable design of DLT-DDR-002.
+"""DoliTrail sizing calculations (DLT-CAL-001), on the constructable design of DLT-DDR-002 with
+Amish's round-2 decisions of 2026-10-03 (6A, 7A, 8A, 9A; DLT-DDR-003).
 
 Run from the repo root:  python docs/04-calcs/sizing.py
 Prints every result with its tag and writes docs/04-calcs/results.csv. Sizes come from the
 parametric model (cad/src/model.py), so the figures match the STEP files, drawings and build plan.
 Screening estimates for a paper proof of concept; every figure is checked by test at TRL 4.
-Round 2 requirement decisions (DLT-DDR-003) are in: wheel kept and proved by a 285 kg static proof load
-(R3), hold-back strap and the wet clay rule (R5), two bags (R7), four bearers at steps with lift
-handles on the cross stubs (R8).
 CONCEPT, NOT FOR FABRICATION.
 """
 import csv
@@ -47,9 +45,9 @@ A = {
     "cross_slope": 0.15,     # side slope for the roll check
     "step": 400.0,           # mm, R8
     "step_clear": 50.0,      # mm, wheel clear of the step edge
-    "step_four": 250.0,      # mm, steps above this are lifted by four bearers (DLT-DDR-003, R8 option A)
-    "clay_rule": 0.20,       # grade above which the doli is lifted and carried on wet clay (DLT-DDR-003, R5 option A)
-    "web25_break": 5000.0,   # N, breaking strength of 25 mm polyester webbing with sewn ends (assumed, to confirm)
+    "carry_limit": 0.20,     # decision 7A: lift and carry on wet clay steeper than this grade
+    "web25_break": 5000.0,   # N, 25 mm polyester webbing, typical breaking strength (to confirm)
+    "web50_break": 10000.0,  # N, 50 mm polyester webbing, typical breaking strength (to confirm)
 }
 
 STEEL, RUBBER = 7850.0, 1300.0
@@ -59,9 +57,9 @@ BOUGHT = {  # kg each, typical catalogue masses (to confirm when bought)
     "cross": 0.15, "patient": 0.20, "harness": 0.75, "bag": 0.60, "card": 0.02, "ties": 0.04,
     "pump": 0.35,            # mini pump, tyre levers, patches, spare tube
     "mount_straps": 0.05,
-    "bag2": 0.45,            # each of the two carry bags (DLT-DDR-003, R7 option A; one 0.60 kg bag before)
-    "handle": 0.10,          # each lift handle, webbing with bar-tacked ends (R8 option A)
-    "holdback": 0.20,        # hold-back strap with its hip belt clip (R5 option A)
+    "holdback": 0.20,        # decision 7A: caps, legs, ring, tail and buckle
+    "handle": 0.10,          # decision 9A: each, webbing band, loop and foam grip
+    "parts_bag": 0.30,       # decision 8A: second bag
 }
 
 
@@ -78,15 +76,12 @@ def masses():
         + BOUGHT["mount_straps"],
         "wheel": BOUGHT["wheel"], "brake": BOUGHT["brake"], "cross": BOUGHT["cross"],
         "patient": 3 * BOUGHT["patient"], "harness": 2 * BOUGHT["harness"],
-        "bag": 2 * BOUGHT["bag2"], "card": BOUGHT["card"], "ties": BOUGHT["ties"], "pump": BOUGHT["pump"],
-        "handles": 2 * BOUGHT["handle"], "holdback": BOUGHT["holdback"],
+        "bag": BOUGHT["bag"], "card": BOUGHT["card"], "ties": BOUGHT["ties"], "pump": BOUGHT["pump"],
+        "holdback": BOUGHT["holdback"], "handles": 2 * BOUGHT["handle"], "parts_bag": BOUGHT["parts_bag"],
     }
-    on_doli = sum(m[x] for x in ("fork", "arms", "jaws", "liners", "bolts", "mount", "wheel", "brake", "cross", "patient", "handles"))
-    # two bags (R7 option A): the wheel bag and the parts bag
-    m["bag_wheel"] = m["fork"] + m["wheel"] + m["brake"] + m["pump"] + BOUGHT["bag2"]
-    m["bag_parts"] = sum(m[x] for x in ("arms", "jaws", "liners", "bolts", "mount", "cross", "patient", "harness", "card", "ties",
-                                         "handles", "holdback")) + BOUGHT["bag2"]
-    m["kit"] = sum(v for x, v in m.items() if x not in ("kit", "bag_wheel", "bag_parts"))
+    on_doli = sum(m[x] for x in ("fork", "arms", "jaws", "liners", "bolts", "mount", "wheel", "brake", "cross", "patient",
+                                 "handles"))
+    m["kit"] = sum(v for x, v in m.items() if x not in ("kit",))
     m["on_doli"] = on_doli
     return m
 
@@ -123,15 +118,15 @@ def run():
     for key, tag in (("fork", "K1"), ("arms", "K2"), ("jaws", "K3"), ("liners", "K4"), ("bolts", "K5"),
                      ("wheel", "K6"), ("brake", "K7"), ("mount", "K8"), ("harness", "K9")):
         out(tag, f"Mass, {M.BOM[key][1].lower()}", m[key], "kg")
-    soft = m["cross"] + m["patient"] + m["bag"] + m["card"] + m["ties"] + m["pump"] + m["handles"] + m["holdback"]
-    out("K10", "Mass, straps, two bags, card, ties, pump, lift handles and hold-back strap", soft, "kg")
+    soft = m["cross"] + m["patient"] + m["bag"] + m["card"] + m["ties"] + m["pump"] + m["parts_bag"]
+    out("K10", "Mass, straps, two bags, card, ties, pump and puncture kit", soft, "kg")
     out("K11", "Kit mass, everything in the two bags", m["kit"], "kg")
-    out("K12", "Kit mass fitted to the doli (frame, wheel, brake, straps)", m["on_doli"], "kg")
-    bag_frame = m["fork"] + m["arms"] + m["jaws"] + m["liners"] + m["bolts"] + m["wheel"] + m["brake"] + m["mount"] + m["pump"]
-    out("K13", "Of which steel frame, wheel, brake and pump", bag_frame, "kg")
-    out("K14", "Bag 1, the wheel bag: fork unit with wheel and brake, pump", m["bag_wheel"], "kg")
-    out("K15", "Bag 2, the parts bag: arms, jaws, bolts, lever mount, straps, harnesses, handles", m["bag_parts"], "kg")
-    out("K16", "Heavier bag against the 10 kg of R7", max(m["bag_wheel"], m["bag_parts"]), "kg")
+    out("K12", "Kit mass fitted to the doli (frame, wheel, brake, straps, lift handles)", m["on_doli"], "kg")
+    bag_a = m["fork"] + m["handles"] + m["wheel"] + m["brake"] + m["pump"] + m["bag"]
+    bag_b = m["kit"] - bag_a
+    out("K13", "Wheel bag: fork unit with lift handles, wheel, brake, pump kit and bag (decision 8A)", bag_a, "kg")
+    out("K14", "Parts bag: arms, jaws, bolts, lever mount, straps, harnesses, hold-back strap and bag", bag_b, "kg")
+    out("K15", "Mass, hold-back strap; lift handles (two)", f"{m['holdback']:.2f}; {m['handles']:.2f}", "kg")
     # ---------------------------------------------------------------- loads (R3, R4)
     W = A["patient"] + A["doli"] + m["on_doli"]
     out("L1", "Rolling weight: rated patient, doli and fitted kit", W, "kg")
@@ -171,13 +166,16 @@ def run():
     out("B6", "Tyre grip factor on wet clay or mud (mu 0.35)", grip_mud)
     out("B7", "Tyre grip factor on a wet test ramp (mu 0.60)", grip_ramp)
     hold_back = max(0.0, F_slope - A["mu_tyre_mud"] * N_w) / G
-    out("B8", "Shortfall on wet mud, held back by the uphill bearer on the hold-back strap", hold_back, "kg-force")
-    th20 = math.atan(A["clay_rule"])
-    F20 = W * G * math.sin(th20)
-    N20 = W * G * math.cos(th20) - (W * math.sin(th20) * H / af + pitch) * G
-    out("B9", "Tyre grip factor on wet clay at the 20 % rule grade (above it: lift and carry)", A["mu_tyre_mud"] * N20 / F20)
-    out("B10", "Hold-back strap: worst case, the whole along-slope force on a 30 % grade", F_slope, "N", "if the wheel slides fully")
-    out("B11", "Hold-back strap factor on the 25 mm webbing breaking strength (assumed 5 kN)", A["web25_break"] / F_slope)
+    out("B8", "Shortfall on wet mud, to be held back by the uphill bearer", hold_back, "kg-force")
+    # decision 7A: hold-back strap and the lift-and-carry rule on wet clay steeper than 20 per cent
+    th2 = math.atan(A["carry_limit"])
+    F2 = W * G * math.sin(th2)
+    N2 = W * G * math.cos(th2) - (W * math.sin(th2) * H / af + pitch) * G
+    out("B9", "Tyre grip factor on wet clay at the 20 % carry limit (rolling allowed up to here)", A["mu_tyre_mud"] * N2 / F2)
+    out("B10", "Hold-back strap pull, 30 % wet clay, wheel at the grip limit", hold_back * G, "N",
+        "the rule says carry here; shown for a patch met by surprise")
+    out("B11", "Hold-back strap strength factor against the whole along-slope force on 30 %",
+        2 * A["web25_break"] / F_slope, "", "two 25 mm legs; webbing strength to confirm")
     # ---------------------------------------------------------------- clamps (R1)
     f_clamp = A["mu_rubber"] * A["clamp_force"] * math.sqrt(2) * 2
     out("C1", "Slip resistance of one clamp along the pole (wet)", f_clamp, "N")
@@ -216,15 +214,21 @@ def run():
     out("S9", "Wheel: seller's rating / twice the wheel load", A["wheel_rating"] / (k2 * W))
     out("S10", "Tyre: rating / twice the wheel load", A["tyre_rating"] / (k2 * W))
     out("S11", "Tyre: rating / the rated wheel load", A["tyre_rating"] / W)
+    out("S12", "Wheel proof load before use, twice the rolling weight (decision 6A)", k2 * W, "kg")
     # ---------------------------------------------------------------- width, steps, fitting (R6, R8, R2)
     out("W1", "Overall width with wheel, reference doli (R6)", D["width"], "mm")
     rise = A["step"] + A["step_clear"]
     out("H1", "Rise of the poles at the wheel to clear a 400 mm step", rise, "mm")
     out("H2", "Pole height while the wheel clears the step", P["pole_z"] + rise, "mm")
     out("H3", "Lift per bearer, two bearers", W / 2, "kg")
-    out("H4", "Lift per bearer, four bearers (two at the pole ends, two helpers at the lift handles)", W / 4, "kg")
-    out("H5", "Steps lifted by four bearers: above (rule)", A["step_four"], "mm")
-    out("H6", "Lift per bearer, two bearers, at the 250 mm rule step (poles rise 300 mm)", W / 2, "kg", "same weight, lifted 300 mm to about 1,020 mm")
+    out("H4", "Lift per bearer, four bearers", W / 4, "kg")
+    # decision 9A: two helpers lift at webbing handles on the cross stubs
+    h_pull = W / 4 * G
+    arm_h = (P["handle_y"] - P["strut_y"]) / 1000
+    s_h = k2 * h_pull * arm_h * 1000 / shs_z(*P["stub"])
+    out("H5", "Pull on each lift handle, four lifting", h_pull, "N")
+    out("H6", "Stub bending at the strut from a handle, twice the handle pull", s_h, "MPa")
+    out("H7", "Lift handle webbing strength factor (50 mm)", A["web50_break"] / h_pull)
     fit = [("Set the arms to the pole spacing and lock the set screws (wheel travels fitted in the fork unit)", 45),
            ("Raise the doli on two bearers' knees or blocks", 20), ("Slide the frame under, wheel under the hip mark", 30),
            ("Close four clamps (eight T-bolts, two people in parallel)", 80), ("Cross strap", 25),

@@ -12,7 +12,7 @@ Adds a braked wheel and harness to the bamboo stretchers families use to carry p
 
 Villages without roads already have a way to move a patient: the doli, a stretcher made from bamboo poles and cloth, carried by relatives and neighbours. DoliTrail does not replace it. It adds a clamp-on wheel with a hand brake under the doli and a shoulder harness for the bearers. On level and gentle ground the wheel carries most of the weight and the bearers steer; on descents they hold speed with the brake lever; at steps, rocks and streams they lift the doli and carry it as they do today.
 
-Keeping it as an add-on matters. Families build dolis from what is at hand, so a kit that clamps to poles of different sizes, costs little and can be carried to the village and fitted in minutes is more likely to be used than a new stretcher. The value-engineering target for the parts is USD 1,500 (the constructable design is estimated at USD 455), and the aim is a kit that a block health office or a village health committee can keep ready.
+Keeping it as an add-on matters. Families build dolis from what is at hand, so a kit that clamps to poles of different sizes, costs little and can be carried to the village and fitted in minutes is more likely to be used than a new stretcher. The value-engineering target for the parts is USD 1,500 (the constructable design is estimated at USD 482), and the aim is a kit that a block health office or a village health committee can keep ready.
 
 ## Burning platform
 
@@ -54,7 +54,7 @@ Full problem statement: [docs/01-problem.md](docs/01-problem.md)
 
 ## Concept
 
-A clamp-on braked wheel and shoulder harness that fits the bamboo stretcher (doli) families already use; the bearers roll the patient along the trail, hold speed on descents with the brake lever and a hold-back strap, and lift it over steps, with four people at steps over about 250 mm.
+A clamp-on braked wheel and shoulder harness that fits the bamboo stretcher (doli) families already use; the bearers roll the patient along the trail, hold speed on descents with the brake lever, and lift it over steps.
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [docs/03-requirements.md](docs/03-requirements.md) · Calculations: [docs/04-calcs/01-sizing.md](docs/04-calcs/01-sizing.md) · Prototype build plan: [docs/05-build-plan.md](docs/05-build-plan.md) · Design decisions: [docs/06-design-decisions.md](docs/06-design-decisions.md)
 
@@ -66,7 +66,7 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md) · Requirements: [d
 - Brake and lever
 - Bearer harnesses
 - Patient straps
-- Lift handles and hold-back strap
+- Hold-back strap and lift handles
 - Two carry bags and fitting card
 
 ## Building the prototype
@@ -79,9 +79,7 @@ The prototype build plan ([docs/05-build-plan.md](docs/05-build-plan.md)) shows 
 
 > Safety-critical patient transport equipment. Published as an open engineering reference, never as certified medical or rescue equipment.
 >
-> Brake failure or tyre slip on a steep descent could lead to a runaway or a fall. Bearers keep hold of the poles at all times, the rear bearer is clipped to the hold-back strap on every descent, and the doli is lifted and carried on wet clay steeper than 20 per cent and on any slope steeper than the tested limit.
->
-> Four people lift at any step over about 250 mm; two bearers never lift the loaded doli over such a step.
+> Brake failure on a steep descent could lead to a runaway or a fall. Bearers keep hold of the poles at all times and lift and carry on slopes steeper than the tested limit.
 >
 > Lift and carry across streams and rivers; never roll the doli through moving water.
 >
@@ -89,7 +87,7 @@ The prototype build plan ([docs/05-build-plan.md](docs/05-build-plan.md)) shows 
 >
 > Straps must release quickly so the patient can be moved off the doli at once if needed.
 >
-> The doli rolls on one wheel and can tip sideways: bearers keep both hands on the poles. No person is carried until the frame, clamps and wheel have been proof-loaded, the wheel and tyre with a 285 kg static load (see the build plan, sections 5 and 6).
+> The doli rolls on one wheel and can tip sideways: bearers keep both hands on the poles. No person is carried until the frame, clamps and wheel have been proof-loaded (see the build plan, sections 5 and 6).
 >
 > This design is published as an open engineering reference. It is not certified equipment. CONCEPT, NOT FOR FABRICATION.
 
